@@ -1,10 +1,10 @@
-# Presentamos "RayRabbit Framework"
+# RayRabbit AI Interoperability Infrastructure
 
-Un framework agéntico avanzado para la interoperabilidad de IA que implementa nativamente los protocolos A2A (Agent2Agent) de Google y MCP (Model Context Protocol) de Anthropic.
+Infraestructura agéntico avanzado para la interoperabilidad de IA que implementa nativamente los protocolos A2A (Agent2Agent) de Google y MCP (Model Context Protocol) de Anthropic.
 
 ## Introducción
 
-RayRabbit es un framework agéntico propietario diseñado para abordar los desafíos inherentes a la comunicación y orquestación de sistemas de inteligencia artificial distribuidos. En la era actual de la IA, donde la complejidad de las aplicaciones crece exponencialmente, la necesidad de que los agentes de IA interactúen de manera fluida, segura y estandarizada se ha vuelto primordial. RayRabbit se posiciona como la solución fundamental para construir ecosistemas de agentes robustos y escalables, permitiendo una verdadera interoperabilidad entre diversas entidades de IA. Este documento sirve como el manifiesto de RayRabbit, delineando su propósito, principios fundamentales, arquitectura de alto nivel y la visión que impulsa su desarrollo. Nuestro objetivo es empoderar a desarrolladores, investigadores y empresas para crear sistemas multi-agente que trasciendan las limitaciones de los enfoques monolíticos y aislados.
+RayRabbit es Infrastructure AI Interoperability  agéntico propietario diseñado para abordar los desafíos inherentes a la comunicación y orquestación de sistemas de inteligencia artificial distribuidos. En la era actual de la IA, donde la complejidad de las aplicaciones crece exponencialmente, la necesidad de que los agentes de IA interactúen de manera fluida, segura y estandarizada se ha vuelto primordial. RayRabbit se posiciona como la solución fundamental para construir ecosistemas de agentes robustos y escalables, permitiendo una verdadera interoperabilidad entre diversas entidades de IA. Este documento sirve como el manifiesto de RayRabbit, delineando su propósito, principios fundamentales, arquitectura de alto nivel y la visión que impulsa su desarrollo. Nuestro objetivo es empoderar a desarrolladores, investigadores y empresas para crear sistemas multi-agente que trasciendan las limitaciones de los enfoques monolíticos y aislados.
 
 
 ## ¿Qué Problema Resuelve RayRabbit?
@@ -251,9 +251,9 @@ if langchain_bridge:
 
 ## 🧪 Testing
 
-El framework incluye un ejemplo completo que demuestra:
+La Infrastructure incluye un ejemplo completo que demuestra:
 
-1. ✅ Inicialización del framework
+1. ✅ Inicialización del Infrastructure
 
 1. ✅ Creación y registro de agentes
 
@@ -267,7 +267,7 @@ El framework incluye un ejemplo completo que demuestra:
 
 ## 🤝 Contribución
 
-RayRabbit es un framework de código abierto. Las contribuciones son bienvenidas:
+RayRabbit es un Infrastructure de código abierto. Las contribuciones son bienvenidas:
 
 1. Fork el repositorio
 
@@ -305,7 +305,7 @@ MIT License - ver archivo LICENSE para detalles.
 
 ---
 
-**RayRabbit Framework** - Construyendo el futuro de los sistemas agénticos interoperables.
+**RayRabbit Infrastructure AI** - Construyendo el futuro de los sistemas agénticos interoperables.
 
 El nombre comercial **"[RayRabbit]"** se encuentra reservado por su autor [Santiago Dichiera](https://www.linkedin.com/in/santiago-dichiera-a7201938/)
 
