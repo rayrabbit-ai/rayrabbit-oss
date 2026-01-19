@@ -40,11 +40,11 @@ El panorama actual de la inteligencia artificial se caracteriza por una prolifer
 
 ### Integraciones Nativas
 
-- **LangChain Bridge**: Integración completa con cadenas, agentes y herramientas de LangChain
+- **LangChain Servicis**: Integración completa con cadenas, agentes y herramientas de LangChain
 
-- **CrewAI Bridge**: Soporte para crews y agentes colaborativos de CrewAI
+- **CrewAI Servicis**: Soporte para crews y agentes colaborativos de CrewAI
 
-- **AutoGen Bridge**: Comunicación con agentes conversacionales de Microsoft AutoGen
+- **AutoGen Servicis**: Comunicación con agentes conversacionales de Microsoft AutoGen
 
 ### Seguridad y Monitoreo
 
