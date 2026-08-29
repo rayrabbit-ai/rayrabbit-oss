@@ -1,0 +1,60 @@
+sequenceDiagram
+    autonumber
+    participant Browser as Navegador (WebSocket)
+    participant Hub as Hub RayRabbit (8005)
+    participant UIM as logistics_ui_manager (8006)
+    participant LC as LangChain Service (8002)
+    participant CR as CrewAI Service (8001)
+    participant AG as AutoGen Service (8003)
+
+    Note over Browser,AG: 1. Arranque de Infraestructura y Conexión
+    Browser->>Hub: Conexión WebSocket (/ws/a2ui/logistics_dashboard)
+    activate Hub
+    Hub-->>Browser: [HANDSHAKE OK] Canal de visualización conectado
+    deactivate Hub
+
+    UIM->>Hub: Handshake dinámico (Identidad Soberana P2P JWS)
+    activate Hub
+    Hub->>Hub: Verifica Firma RSA y añade endpoint dynamic a A2ARouter
+    Hub-->>UIM: [SUCCESS] Identidad vinculada en el Business Bus
+    deactivate Hub
+
+    Note over Browser,AG: 2. Petición y Orquestación Inteligente (A2A / MCP)
+    Browser->>Hub: Enviar Acción ("Rastrear pedido ORD-2025-001")
+    activate Hub
+    Hub->>UIM: Ruteo A2A directo vía HTTP POST (/a2ui)
+    deactivate Hub
+    activate UIM
+    
+    Note over UIM: Inferencia de IA (z-ai/glm-4.5-air)<br/>Determina ejecutar herramientas MCP en paralelo
+    
+    par [MCP Tool Call] -> Obtener tracking estructurado
+        UIM->>LC: POST /mcp/call (tool: get_order_tracking) [Firmado JWS]
+        activate LC
+        LC->>LC: Busca en SAP TM Local DB (SQLite)
+        LC-->>UIM: Retorna JSON-RPC estándar
+        deactivate LC
+    and [MCP Tool Call] -> Obtener plan de ruteo
+        UIM->>CR: POST /mcp/call (tool: get_routing_plan) [Firmado JWS]
+        activate CR
+        CR->>CR: Ejecuta Crew (Planificación de rutas)
+        CR-->>UIM: Retorna JSON-RPC estándar
+        deactivate CR
+    and [MCP Tool Call] -> Obtener asignación de flota
+        UIM->>AG: POST /mcp/call (tool: get_fleet_assignments) [Firmado JWS]
+        activate AG
+        AG->>AG: Ejecuta Multi-Agent Chat en AutoGen
+        AG-->>UIM: Retorna JSON-RPC estándar
+        deactivate AG
+    end
+
+    Note over UIM: Consolidación de datos de los 3 nodos<br/>Construcción del modelo A2UI v0.10
+    
+    UIM->>Hub: Publicar Actualización (MessageType.EVENT / A2UI v0.10)
+    activate Hub
+    Hub->>Hub: Aplica Política de Confianza Local (LTP)
+    Hub->>Browser: Transmite JSON A2UI a través del canal de visualización
+    deactivate Hub
+
+    Note over Browser: Renderizado dinámico interactivo en la pantalla
+    deactivate UIM

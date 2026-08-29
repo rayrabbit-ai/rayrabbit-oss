@@ -1,0 +1,11 @@
+RayRabbit
+Copyright 2025-2026 RayRabbit Development Team
+
+This product includes software developed by the RayRabbit Development Team (https://rayrabbit-ai.github.io/).
+
+SPDX-License-Identifier: AGPL-3.0-only
+
+This product integrates with various open-source projects under their respective licenses:
+- Google's Agent-to-Agent (A2A) protocol implementation details.
+- Anthropic's Model Context Protocol (MCP) specifications.
+- Third-party library dependencies listed in pyproject.toml.

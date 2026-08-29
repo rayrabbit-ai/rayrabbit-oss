@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "rayrabbit_mesh": {
+      "url": "http://127.0.0.1:8005/api/mcp/sse",
+      "transport": "sse",
+      "headers": {
+        "X-RayRabbit-Agent-ID": "claude_code_agent"
+      }
+    }
+  }
+}

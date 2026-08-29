@@ -1,0 +1,108 @@
+{
+    "components": [
+        {
+            "id": "root",
+            "component": { "Column": { "children": ["header-row", "status-card", "services-card", "actions-card", "footer-text"] } }
+        },
+        {
+            "id": "workspace-selector",
+            "component": { "Card": { "children": ["ws-title", "ws-buttons"], "variant": "elevated" } }
+        },
+        {
+            "id": "ws-title",
+            "component": { "Text": { "text": { "literalString": "🌐 Seleccionar Espacio de Trabajo" }, "variant": "caption" } }
+        },
+        {
+            "id": "ws-buttons",
+            "component": { "Row": { "children": ["btn-ws-logistics", "btn-ws-crypto"] } }
+        },
+        {
+            "id": "btn-ws-logistics",
+            "component": { "Button": { "text": { "literalString": "📦 SAP Logistics" }, "variant": "primary", "action": { "type": "userAction", "id": "switch_workspace_logistics" } } }
+        },
+        {
+            "id": "btn-ws-crypto",
+            "component": { "Button": { "text": { "literalString": "₿ Crypto Trading" }, "variant": "secondary", "action": { "type": "userAction", "id": "switch_workspace_crypto" } } }
+        },
+        {
+            "id": "header-row",
+            "component": { "Column": { "children": ["title", "subtitle"] } }
+        },
+        {
+            "id": "title",
+            "component": { "Text": { "text": { "literalString": "🚀 Dashboard Logístico — Monitoreo Activo" }, "variant": "h1" } }
+        },
+        {
+            "id": "subtitle",
+            "component": { "Text": { "text": { "literalString": "Sistema de monitoreo en tiempo real de la cadena logística con análisis de datos reales del sistema." }, "variant": "body" } }
+        },
+        {
+            "id": "status-card",
+            "component": { "Card": { "children": ["status-title", "status-body", "status-nodes"] } }
+        },
+        {
+            "id": "status-title",
+            "component": { "Text": { "text": { "literalString": "📡 Infraestructura de Red A2A & MCP" }, "variant": "h3" } }
+        },
+        {
+            "id": "status-body",
+            "component": { "Text": { "text": { "literalString": "Todos los servicios críticos están federados y comunicándose a través del MessageBus soberano de RayRabbit:" }, "variant": "body" } }
+        },
+        {
+            "id": "status-nodes",
+            "component": { "Row": { "children": ["node-lc", "node-cr", "node-ag"] } }
+        },
+        {
+            "id": "node-lc",
+            "component": { "Text": { "text": { "literalString": "🟢 Global Logistics Manager (8002)" }, "variant": "caption" } }
+        },
+        {
+            "id": "node-cr",
+            "component": { "Text": { "text": { "literalString": "🟢 DeepRoute Optimizer (8001)" }, "variant": "caption" } }
+        },
+        {
+            "id": "node-ag",
+            "component": { "Text": { "text": { "literalString": "🟢 Autonomous Fleet Commander (8003)" }, "variant": "caption" } }
+        },
+        {
+            "id": "services-card",
+            "component": { "Card": { "children": ["services-title", "services-body"] } }
+        },
+        {
+            "id": "services-title",
+            "component": { "Text": { "text": { "literalString": "🚚 Flujos de Coordinación y Telemetría" }, "variant": "h3" } }
+        },
+        {
+            "id": "services-body",
+            "component": { "Text": { "text": { "literalString": "Monitoree la optimización dinámica de rutas y despacho de vehículos. Envíe consultas directamente desde la barra de chat." }, "variant": "body" } }
+        },
+        {
+            "id": "actions-card",
+            "component": { "Card": { "children": ["actions-title", "actions-row"] } }
+        },
+        {
+            "id": "actions-title",
+            "component": { "Text": { "text": { "literalString": "⚡ Acciones Rápidas de Monitoreo" }, "variant": "h3" } }
+        },
+        {
+            "id": "actions-row",
+            "component": { "Row": { "children": ["btn-tracking", "btn-fleet", "btn-routes"] } }
+        },
+        {
+            "id": "btn-tracking",
+            "component": { "Button": { "text": { "literalString": "📦 Consultar Tracking" }, "variant": "primary", "action": { "type": "userAction", "id": "quick-tracking" } } }
+        },
+        {
+            "id": "btn-fleet",
+            "component": { "Button": { "text": { "literalString": "🚛 Estado de Flota" }, "variant": "secondary", "action": { "type": "userAction", "id": "quick-fleet" } } }
+        },
+        {
+            "id": "btn-routes",
+            "component": { "Button": { "text": { "literalString": "🗺️ Optimizar Ruta" }, "variant": "secondary", "action": { "type": "userAction", "id": "quick-routes" } } }
+        },
+        {
+            "id": "footer-text",
+            "component": { "Text": { "text": { "literalString": "Conectado al Hub Soberano — Puerto 8005 | A2UI v0.9.1 | Cifrado E2E Activo" }, "variant": "caption" } }
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-dotenv
+cryptography
+httpx
+pyautogen
+google-generativeai
+litellm
+apscheduler
+autogen-ext[openai]

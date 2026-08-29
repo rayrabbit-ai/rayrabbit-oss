@@ -1,0 +1,134 @@
+# =============================================================
+# RayRabbit OSS — .gitignore
+# =============================================================
+
+# ─── Python build & packaging artifacts ──────────────────────
+*.egg-info/
+*.egg
+dist/
+**/dist/
+build/
+**/build/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.eggs/
+*.so
+*.wheel
+MANIFEST
+
+# ─── Virtual environments (raíz y subdirectorios) ───────────
+venv*/
+.venv*/
+env/
+.env/
+ENV/
+# Cubre examples/services/*/venv/ y cualquier venv anidado
+**/venv/
+**/venv_*/
+**/.venv/
+
+# ─── Testing & coverage ──────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.coveragerc
+.tox/
+nosetests.xml
+test-results/
+
+# ─── Security / runtime data (NUNCA subir al repo) ───────────
+keystore/
+audit_logs/
+.rayrabbit_data/
+*.db
+*.sqlite
+*.sqlite3
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+secrets.yaml
+secrets.json
+.secrets/
+
+# ─── Configuración local sensible ────────────────────────────
+config.local.yaml
+.env
+.env.*
+!.env.example
+
+# ─── Outputs y scratch ───────────────────────────────────────
+output/
+scratch/
+funcionalidad/
+rayrabbit-oss/
+test_tasks.db
+
+# ─── Infraestructura de Negocio & Estrategia Privada ─────────
+infra-negocio/
+
+# ─── Workflows Locales & Skills de OpenSpec ──────────────────
+.agent/workflows/
+.agent/skills/openspec-*/
+
+# ─── JavaScript Client SDK (Under Active Development) ────────
+clients/javascript/*
+!clients/javascript/README.md
+
+# ─── Node / Next.js & Frontend Caches ────────────────────────
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+.turbo/
+**/.turbo/
+
+# ─── GitHub Pages / Documentation site ──────────────────────
+rayrabbit-ai.github.io/
+
+# ─── Documentación fuente MkDocs (se compila externamente) ──
+/docs/
+/docs_backup/
+
+# ─── MkDocs / site generado ──────────────────────────────────
+site/
+
+# ─── IDEs y editores ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Jupyter Notebooks checkpoints ───────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── Logs ────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── MyPy / type checkers ────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ─── Ruff / linters ──────────────────────────────────────────
+.ruff_cache/
+
+# ─── GitHub Actions cache ────────────────────────────────────
+# (el directorio .github/ SÍ se sube — solo se excluye caché)
+.act/
+
+# ─── Enterprise Proprietary Modules ─────────────────────────
+rayrabbit/enterprise/
+**/enterprise/
+

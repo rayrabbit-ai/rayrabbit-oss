@@ -1,0 +1,10 @@
+python-dotenv
+fastapi
+pydantic
+crewai
+uvicorn
+httpx
+litellm
+apscheduler
+cryptography
+email-validator

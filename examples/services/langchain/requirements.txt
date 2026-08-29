@@ -1,0 +1,12 @@
+python-dotenv
+fastapi
+pydantic
+uvicorn
+cryptography
+langchain-google-genai
+langchain-core
+langchain-ollama
+httpx
+langchain-litellm
+litellm
+apscheduler

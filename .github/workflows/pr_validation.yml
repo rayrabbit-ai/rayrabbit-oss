@@ -1,0 +1,47 @@
+name: PR Validation & E2E Testing
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev,all]
+
+      - name: Boot RayRabbit Cluster (Background)
+        run: |
+          # Levanta el cluster y lo manda al background
+          python run_local_rayrabbit_cluster.py &
+          echo "RAYRABBIT_PID=$!" >> $GITHUB_ENV
+
+      - name: Wait for Cluster Health
+        run: |
+          echo "Esperando que el Hub (8005) esté online..."
+          timeout 60 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8005/health)" != "200" ]]; do sleep 2; done' || (echo "Hub timeout" && exit 1)
+          echo "Hub online. Esperando 10s adicionales para inicialización de agentes..."
+          sleep 10
+
+      - name: Execute E2E Tests
+        run: |
+          pytest tests/ -v
+
+      - name: Teardown Cluster
+        if: always()
+        run: |
+          echo "Deteniendo el clúster..."
+          kill $RAYRABBIT_PID || true

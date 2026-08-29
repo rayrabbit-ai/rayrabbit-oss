@@ -1,0 +1,4 @@
+name: Logistics Dashboard (SAP TM)
+description: Caso de uso demostrativo de logistica intermodal usando Langchain, CrewAI y AutoGen.
+version: "1.0.0"
+agent_id: logistics_ui_manager

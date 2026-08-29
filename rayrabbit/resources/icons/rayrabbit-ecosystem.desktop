@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=RayRabbit Ecosystem
+GenericName=AI Interoperability Infrastructure L3
+Comment=Universal Interoperability Infrastructure for AI Agents (AI TCP/IP + TLS + HTTP)
+Exec=rayrabbit-ecosystem
+Icon=rayrabbit-ai
+Terminal=true
+Categories=Development;System;Network;
+StartupNotify=true
+StartupWMClass=RayRabbit Ecosystem

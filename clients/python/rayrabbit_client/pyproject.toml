@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rayrabbit_client"
+version = "0.1.0"
+description = "Official Python SDK for RayRabbit - Universal Interoperability Infrastructure"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "RayRabbit Labs", email = "oss@rayrabbit.ai" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0",
+    "jwcrypto>=1.5.0",
+    "cryptography>=41.0.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/rayrabbit-ai/rayrabbit"
+"Bug Tracker" = "https://github.com/rayrabbit-ai/rayrabbit/issues"

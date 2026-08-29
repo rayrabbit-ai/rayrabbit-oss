@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RayRabbit | Estándar de capa L3 | De Próxima Generación de IA (AI TCP/IP + TLS + HTTP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.3);
+            --bg: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+            --sidebar-w: 380px;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+        }
+
+        /* Header */
+        header {
+            padding: 12px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .logo img {
+            height: 44px;
+            width: 44px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: white;
+            padding: 2px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main Layout */
+        main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Canvas Panel (Left) */
+        #canvas-panel {
+            flex: 1;
+            position: relative;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #ui-root {
+            width: 100%;
+            max-width: 900px;
+            transition: all 0.5s ease;
+        }
+
+        /* Chat Panel (Right) */
+        #chat-panel {
+            width: var(--sidebar-w);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.02);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Chat Bubbles */
+        .bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bubble.agent {
+            align-self: flex-start;
+            background: white;
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .bubble.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── Thinking / Loading Animation ── */
+        @keyframes spin-logo {
+            0%   { transform: rotate(0deg) scale(1); }
+            50%  { transform: rotate(180deg) scale(1.08); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+            40%            { transform: translateY(-5px); opacity: 1; }
+        }
+        .bubble.thinking {
+            align-self: flex-start;
+            background: white;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            animation: fadeIn 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .bubble.thinking.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .thinking-logo {
+            width: 32px;
+            height: 32px;
+            animation: spin-logo 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            filter: drop-shadow(0 0 6px rgba(99,102,241,0.35));
+        }
+        .thinking-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .thinking-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: inline-block;
+            animation: dot-bounce 1.2s infinite ease-in-out;
+        }
+        .thinking-dots span:nth-child(2) { animation-delay: 0.15s; }
+        .thinking-dots span:nth-child(3) { animation-delay: 0.30s; }
+        .thinking-label {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .task-cancel-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 12px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .task-cancel-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Sticky Action Zone */
+        .action-zone {
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+            z-index: 10;
+        }
+        .action-zone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .action-zone-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .action-zone-title-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: dot-bounce 1.2s infinite ease-in-out;
+        }
+        .hitl-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 4px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--glass-border);
+            width: 100%;
+        }
+        .hitl-question {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+        .hitl-buttons {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+        .hitl-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            transition: all 0.2s ease;
+        }
+        .hitl-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .hitl-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+        .hitl-btn.primary:hover {
+            background: #4f46e5;
+        }
+
+        /* Input Zone */
+        .input-zone {
+            padding: 24px;
+            background: var(--glass);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .search-wrapper {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 8px 12px 8px 16px;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px var(--primary-glow);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 24px;
+            max-height: 110px;
+            line-height: 1.4;
+            padding: 4px 0;
+            overflow-y: auto;
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .icon-btn:hover { color: var(--primary); }
+        .send-btn { 
+            background: var(--primary); 
+            color: white !important; 
+            width: 36px; height: 36px; 
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-bottom: 2px;
+        }
+
+        /* Status Indicator */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.05);
+            text-transform: uppercase;
+        }
+        .status-badge.online { color: #10b981; }
+        .status-badge.offline { color: #ef4444; }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+        /* Drafting Slate */
+        #drafting-slate {
+            text-align: center;
+            margin-top: 100px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+
+        /* Workspace Search CSS */
+        .workspace-search-container {
+            position: relative;
+            width: 320px;
+        }
+
+        #workspace-search {
+            width: 100%;
+            padding: 8px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #workspace-search:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+        }
+
+        .search-suggestions-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 36, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            z-index: 1000;
+            animation: slideDown 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-suggestion-item {
+            padding: 10px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-suggestion-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary);
+        }
+
+        .suggestion-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="logo">
+            <img src="rayrabbit-ai.png" alt="RayRabbit Logo">
+            RayRabbit L3 Layer Standard
+        </div>
+        <div class="workspace-search-container">
+            <input type="text" id="workspace-search" placeholder="Search workspaces (e.g. logistics, crypto)..." autocomplete="off">
+            <div id="search-suggestions" class="search-suggestions-dropdown" style="display:none;"></div>
+        </div>
+        <div id="status-indicator" class="status-badge offline">
+            <div class="status-dot"></div>
+            <span id="status-text">Disconnected</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Canvas Section -->
+        <section id="canvas-panel">
+            <div id="ui-root">
+                <div id="drafting-slate">Describe your workflow to begin...</div>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chat-panel">
+            <div class="chat-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                RayRabbit Agent A2UI
+            </div>
+            <div id="chat-history">
+                <div class="bubble agent">
+                    Hello! I'm your Universal A2UI Assistant. How can I help you today?
+                </div>
+            </div>
+            
+            <div id="action-zone" class="action-zone" style="display:none;">
+                <div class="action-zone-header">
+                    <span class="action-zone-title"><div class="action-zone-title-dot"></div> <span id="action-zone-text">Tarea en Ejecución</span></span>
+                    <button class="task-cancel-btn" onclick="cancelCurrentTask()" title="Cancelar tarea activa">✕ Cancelar</button>
+                </div>
+                <div id="hitl-container" class="hitl-container" style="display:none;">
+                    <div id="hitl-question" class="hitl-question">¿Requiere aprobación?</div>
+                    <div id="hitl-buttons" class="hitl-buttons">
+                        <!-- Dynamic Buttons -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-zone">
+                <div class="search-wrapper">
+                    <textarea id="user-input" class="search-input" placeholder="Type a message..." rows="1" autofocus></textarea>
+                    <button id="send-btn" class="icon-btn send-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { A2UIRenderer, ModelProcessor } from '/static/a2ui/a2ui-renderer.js';
+
+        const uiRoot = document.getElementById('ui-root');
+        const chatHistory = document.getElementById('chat-history');
+        const statusText = document.getElementById('status-text');
+        const statusIndicator = document.getElementById('status-indicator');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const draftingSlate = document.getElementById('drafting-slate');
+
+        const processor = new ModelProcessor();
+        const renderer = new A2UIRenderer(uiRoot, processor);
+
+        // --- NUEVO: Capturar acciones del usuario (Step 5 Arch) ---
+        uiRoot.addEventListener('a2ui-action', (e) => {
+            console.log("[A2UI] userAction captured:", e.detail);
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                // Enviar como comando A2A nativo al agente
+                socket.send(JSON.stringify({
+                    name: "userAction",
+                    params: { 
+                        action_id: e.detail.id, 
+                        type: e.detail.type || 'click' 
+                    }
+                }));
+            }
+        });
+
+        // Extraer parámetros dinámicos de la URL (Agnóstico)
+        const urlParams = new URLSearchParams(window.location.search);
+        const agentId = urlParams.get('agentId') || 'default_ui_manager';
+        const streamId = urlParams.get('streamId') || 'default_dashboard';
+        let socket;
+        let reconnectAttempts = 0;
+        const maxReconnectDelay = 20000;
+
+        function updateStatus(online) {
+            statusIndicator.className = online ? 'status-badge online' : 'status-badge offline';
+            statusText.innerText = online ? 'Live' : 'Connecting...';
+        }
+
+        function appendMessage(text, side) {
+            if (!text || text.trim() === '') return;
+            const b = document.createElement('div');
+            b.className = `bubble ${side}`;
+            b.innerText = text;
+            chatHistory.appendChild(b);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // ── Task Controls & HITL Variables ──
+        let currentTaskId = null;
+
+        async function cancelCurrentTask() {
+            if (!currentTaskId) return;
+            try {
+                if (socket && socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify({ action: "cancel_task", task_id: currentTaskId, agent_id: agentId }));
+                }
+                await fetch(`/api/tasks/${currentTaskId}/cancel`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task_id: currentTaskId })
+                }).catch(() => fetch('/api/tasks/cancel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task_id: currentTaskId })
+                }));
+                hideActionZone();
+                isSystemWorking = false;
+                setTimeout(() => hideThinking(true), 1200);
+            } catch(e) {
+                console.error("Error cancelando tarea:", e);
+            }
+        }
+
+        async function resumeCurrentTask(choice) {
+            if (!currentTaskId) return;
+            try {
+                if (socket && socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify({ action: "resume_task", task_id: currentTaskId, user_input: choice, agent_id: agentId }));
+                }
+                await fetch(`/api/tasks/${currentTaskId}/resume`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task_id: currentTaskId, user_input: choice })
+                }).catch(() => fetch('/api/tasks/resume', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task_id: currentTaskId, user_input: choice })
+                }));
+                const hitlBox = document.getElementById('hitl-container');
+                if (hitlBox) hitlBox.style.display = 'none';
+                const thinkingHitl = document.getElementById('thinking-hitl-box');
+                if (thinkingHitl) thinkingHitl.style.display = 'none';
+                const actionText = document.getElementById('action-zone-text');
+                if (actionText) actionText.innerText = choice ? `Reanudando tarea (${choice})...` : 'Reanudando tarea...';
+                setTimeout(() => hideActionZone(), 3500);
+            } catch(e) {
+                console.error("Error reanudando tarea:", e);
+            }
+        }
+
+        // ── Thinking bubble con Controles de Tarea y HITL integrados ──
+        let thinkingBubble = null;
+        let isSystemWorking = false;
+
+        function showThinking() {
+            if (thinkingBubble) return;          // ya visible
+            thinkingBubble = document.createElement('div');
+            thinkingBubble.className = 'bubble thinking';
+            thinkingBubble.style.flexDirection = 'column';
+            thinkingBubble.style.alignItems = 'flex-start';
+            thinkingBubble.style.gap = '10px';
+            thinkingBubble.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <img class="thinking-logo" src="rayrabbit-ai.png" alt="thinking">
+                        <span class="thinking-label">Razonando</span>
+                        <div class="thinking-dots"><span></span><span></span><span></span></div>
+                    </div>
+                    <button class="task-cancel-btn" onclick="cancelCurrentTask()" title="Cancelar pipeline activo">✕ Cancelar</button>
+                </div>
+                <div id="thinking-hitl-box" class="hitl-container" style="display:none; width:100%;">
+                    <div id="thinking-hitl-question" class="hitl-question">¿Requiere aprobación?</div>
+                    <div id="thinking-hitl-buttons" class="hitl-buttons"></div>
+                </div>
+            `;
+            chatHistory.appendChild(thinkingBubble);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            // bloquear input mientras espera
+            userInput.disabled = true;
+            sendBtn.disabled  = true;
+            sendBtn.style.opacity = '0.45';
+        }
+        function hideThinking(force = false) {
+            if (isSystemWorking && !force) {
+                return;
+            }
+            if (thinkingBubble) {
+                const bubble = thinkingBubble;
+                thinkingBubble = null;
+                bubble.classList.add('fade-out');
+                setTimeout(() => {
+                    if (bubble && bubble.parentNode) {
+                        bubble.parentNode.removeChild(bubble);
+                    }
+                }, 200);
+            }
+            // Limpieza determinista de cualquier burbuja de espera residual en el historial
+            const residualBubbles = chatHistory.querySelectorAll('.bubble.thinking');
+            residualBubbles.forEach(b => {
+                b.remove();
+            });
+            userInput.disabled = false;
+            sendBtn.disabled   = false;
+            sendBtn.style.opacity = '1';
+            userInput.focus();
+        }
+
+        function showActionZone() {
+            const az = document.getElementById('action-zone');
+            if (az) az.style.display = 'flex';
+        }
+        function hideActionZone() {
+            const az = document.getElementById('action-zone');
+            if (az) az.style.display = 'none';
+        }
+        function showHITL(hitlReq) {
+            // Mostrar exclusivamente en la zona de acción interactiva (sin duplicar)
+            showActionZone();
+            const container = document.getElementById('hitl-container');
+            const questionEl = document.getElementById('hitl-question');
+            const buttonsEl = document.getElementById('hitl-buttons');
+            const options = hitlReq.options || ["Aprobar", "Rechazar"];
+            const question = hitlReq.question || "⚠️ Se requiere autorización para continuar";
+            const details = hitlReq.details ? `\n${hitlReq.details}` : "";
+            const fullText = question + details;
+
+            if (container && questionEl && buttonsEl) {
+                container.style.display = 'flex';
+                questionEl.innerText = fullText;
+                buttonsEl.innerHTML = '';
+                options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = idx === 0 ? 'hitl-btn primary' : 'hitl-btn';
+                    btn.innerText = opt;
+                    btn.onclick = () => resumeCurrentTask(opt);
+                    buttonsEl.appendChild(btn);
+                });
+            }
+
+            hideThinking(true);
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            sendBtn.style.opacity = '0.45';
+        }
+        function hideHITL() {
+            const container = document.getElementById('hitl-container');
+            if (container) container.style.display = 'none';
+            const bubbleHitlBox = document.getElementById('thinking-hitl-box');
+            if (bubbleHitlBox) bubbleHitlBox.style.display = 'none';
+            userInput.disabled = false;
+            sendBtn.disabled = false;
+            sendBtn.style.opacity = '1';
+        }
+
+        // ==========================================
+        // WebSocket A2UI v0.10 Streaming Client
+        // ==========================================
+        function connect() {
+            const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${proto}//${window.location.host}/ws/a2ui/${streamId}?agent_id=${agentId}`;
+            
+            console.log(`🔌 Conectando WebSocket a: ${wsUrl}`);
+            socket = new WebSocket(wsUrl);
+
+            socket.onopen = () => {
+                console.log("✅ WebSocket Conectado");
+                reconnectAttempts = 0;
+                updateStatus(true);
+                hideActionZone();
+                hideHITL();
+                
+                // Solicitar renderizado del Dashboard Inicial
+                socket.send(JSON.stringify({
+                    action: "get_dashboard",
+                    agent_id: agentId
+                }));
+            };
+
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    console.log("📥 Raw Data:", data);
+
+                    const payloadRoot = (data.a2ui && typeof data.a2ui === 'object' && !Array.isArray(data.a2ui)) ? data.a2ui : data;
+
+                    // Capturar ID de la tarea si viene en la carga útil (raíz o a2ui)
+                    if (payloadRoot.task_id) currentTaskId = payloadRoot.task_id;
+                    if (payloadRoot.payload && payloadRoot.payload.task_id) currentTaskId = payloadRoot.payload.task_id;
+                    if (data.task_id) currentTaskId = data.task_id;
+                    if (data.payload && data.payload.task_id) currentTaskId = data.payload.task_id;
+
+                    // 1. Extraer Narrativa (Conversación)
+                    let narrative = data.narrative || payloadRoot.narrative || (data.updateDataModel && data.updateDataModel.path === '/narrative' ? data.updateDataModel.value : null);
+                    
+                    // 2. Procesar Comandos A2UI
+                    const a2ui = data.a2ui || (Array.isArray(data) ? data : (data.version ? data : null));
+                    const commands = a2ui ? (Array.isArray(a2ui) ? a2ui : [a2ui]) : [];
+                    
+                    // Si no había narrativa en la raíz, buscarla inyectada como comando
+                    if (!narrative && commands.length > 0) {
+                        for (const cmd of commands) {
+                            if (cmd.updateDataModel && cmd.updateDataModel.path === '/narrative') {
+                                narrative = cmd.updateDataModel.value;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Escuchar eventos de progreso, pausa y HITL en updateDataModel /working y actualizar burbuja de espera
+                    for (const cmd of commands) {
+                        if (cmd.updateDataModel) {
+                            const p = cmd.updateDataModel.path;
+                            const val = cmd.updateDataModel.value;
+                            if (p === '/working') {
+                                if (val === true || (typeof val === 'string' && val.length > 0)) {
+                                    isSystemWorking = true;
+                                    if (!thinkingBubble) showThinking();
+                                    if (typeof val === 'string' && thinkingBubble) {
+                                        const labelEl = thinkingBubble.querySelector('.thinking-label');
+                                        if (labelEl) {
+                                            labelEl.innerText = val;
+                                        }
+                                    }
+                                } else if (val === false) {
+                                    isSystemWorking = false;
+                                    hideThinking(true);
+                                    hideActionZone();
+                                }
+                            } else if ((p === '/task_progress' && (val === 100 || val === '100%')) || (p === '/task_badge' && val === 'COMPLETADO')) {
+                                isSystemWorking = false;
+                                hideThinking(true);
+                                hideActionZone();
+                            }
+                        }
+                    }
+
+                    const evtType = payloadRoot.event_type || (payloadRoot.payload && payloadRoot.payload.event_type) || data.event_type || (data.payload && data.payload.event_type);
+                    const taskPayload = payloadRoot.payload || data.payload;
+
+                    // Ocultar thinking y action-zone cuando hay contenido real del agente y no es una actualización intermedia de progreso
+                    const isTaskUpdate = (evtType === 'task.progress' || evtType === 'task.paused' || evtType === 'task.created');
+                    const hasAgentContent = narrative || commands.some(cmd =>
+                        cmd.beginRendering || cmd.surfaceUpdate
+                    );
+                    if (hasAgentContent && !isTaskUpdate) {
+                        isSystemWorking = false;
+                        hideThinking(true);
+                        hideActionZone();
+                    }
+
+                    // Interceptación de eventos de ciclo de vida de TaskEngine del bus MCP v2
+                    if (evtType === 'task.progress' || evtType === 'task.paused' || evtType === 'task.completed' || evtType === 'task.failed') {
+                        showActionZone();
+                        const actionText = document.getElementById('action-zone-text');
+                        if (actionText) {
+                            if (evtType === 'task.paused' || (taskPayload && taskPayload.status === 'paused') || (payloadRoot.step === 'waiting_human_approval')) {
+                                actionText.innerText = '⚠️ Aprobación requerida por el usuario...';
+                                const hitlReq = (taskPayload && taskPayload.hitl_request) ? taskPayload.hitl_request : (payloadRoot.hitl_request || {
+                                    question: "⚠️ Se requiere autorización para continuar",
+                                    options: ["Aprobar", "Rechazar"]
+                                });
+                                showHITL(hitlReq);
+                            } else if (evtType === 'task.completed' || (taskPayload && taskPayload.status === 'completed')) {
+                                hideHITL();
+                                isSystemWorking = false;
+                                hideThinking(true);
+                                actionText.innerText = '✅ Tarea completada con éxito.';
+                                setTimeout(() => hideActionZone(), 3000);
+                            } else if (evtType === 'task.failed' || (taskPayload && taskPayload.status === 'failed')) {
+                                hideHITL();
+                                isSystemWorking = false;
+                                hideThinking(true);
+                                actionText.innerText = '❌ Error en la ejecución de la tarea.';
+                            } else {
+                                hideHITL();
+                                const pct = (taskPayload && taskPayload.progress) || (payloadRoot.progress) || (data.progress) || '';
+                                const rawStep = (taskPayload && taskPayload.step) || (payloadRoot.step) || (data.step) || '';
+                                const step = typeof rawStep === 'string' ? rawStep.replace(/_/g, ' ') : rawStep;
+                                if (rawStep === 'completed' || pct === 100 || pct === '100%') {
+                                    isSystemWorking = false;
+                                    hideThinking(true);
+                                    hideActionZone();
+                                } else {
+                                    actionText.innerText = step
+                                        ? (pct ? `${step} (${pct}%)` : step)
+                                        : (pct ? `Procesando... ${pct}%` : 'Procesando...');
+                                }
+                            }
+                        }
+                    }
+
+                    if (narrative) appendMessage(narrative, 'agent');
+
+                    if (a2ui) {
+                        let hasUI = false;
+                        for (const cmd of commands) {
+                            if (cmd.beginRendering || cmd.surfaceUpdate || cmd.updateDataModel) {
+                                if (draftingSlate) draftingSlate.style.display = 'none';
+                                renderer.render(cmd);
+                                hasUI = true;
+                            }
+                        }
+                    } else if (typeof data === 'string') {
+                        appendMessage(data, 'agent');
+                    }
+                } catch (e) {
+                    // Si no es JSON, tratar como texto plano
+                    hideThinking();
+                    appendMessage(event.data, 'agent');
+                }
+            };
+
+            socket.onclose = () => {
+                updateStatus(false);
+                isSystemWorking = false;
+                hideThinking(true);
+                const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), maxReconnectDelay);
+                reconnectAttempts++;
+                setTimeout(connect, delay);
+            };
+        }
+
+        function adjustTextareaHeight() {
+            userInput.style.height = 'auto';
+            const newHeight = Math.min(Math.max(userInput.scrollHeight, 24), 110);
+            userInput.style.height = newHeight + 'px';
+        }
+
+        function resetInputHeight() {
+            userInput.style.height = '24px';
+        }
+
+        userInput.addEventListener('input', adjustTextareaHeight);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+
+        function handleSend() {
+            const text = userInput.value.trim();
+            if (!text || !socket || socket.readyState !== WebSocket.OPEN) return;
+
+            // Mostrar en chat
+            appendMessage(text, 'user');
+            userInput.value = '';
+            resetInputHeight();
+
+            // Mostrar animación de espera
+            showThinking();
+
+            // Enviar al agente
+            socket.send(JSON.stringify({
+                name: "human_query",
+                params: { query_input: text }
+            }));
+        }
+
+        sendBtn.onclick = handleSend;
+
+        // Acciones globales
+        window.sendInput = (text) => {
+            userInput.value = text;
+            adjustTextareaHeight();
+            handleSend();
+        };
+
+        // --- Controlador del Buscador de Workspaces Premium ---
+        function switchWorkspace(workspaceId) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                showThinking();
+                socket.send(JSON.stringify({
+                    name: "userAction",
+                    params: {
+                        action_id: `switch_workspace_${workspaceId}`,
+                        type: "click"
+                    }
+                }));
+            }
+        }
+
+        const wsSearch = document.getElementById('workspace-search');
+        const searchSuggestions = document.getElementById('search-suggestions');
+
+        // Cargar workspaces dinamicamente desde /api/workspaces (definidos en config.yaml)
+        let availableWorkspaces = [
+            { id: 'logistics', name: 'SAP Logistics', description: 'Manage deliveries, active routes, and drivers' },
+            { id: 'crypto', name: 'Crypto Trading', description: 'Track crypto prices, wallets, and buy/sell actions' }
+        ];
+        fetch('/api/workspaces')
+            .then(r => r.ok ? r.json() : null)
+            .then(json => {
+                if (json && json.workspaces && json.workspaces.length > 0) {
+                    availableWorkspaces = json.workspaces;
+                }
+            })
+            .catch(() => { /* usa el fallback hardcodeado arriba */ });
+
+        wsSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                searchSuggestions.style.display = 'none';
+                return;
+            }
+
+            const matches = availableWorkspaces.filter(ws => 
+                ws.id.toLowerCase().includes(query) || 
+                ws.name.toLowerCase().includes(query) || 
+                ws.description.toLowerCase().includes(query)
+            );
+
+            if (matches.length > 0) {
+                searchSuggestions.innerHTML = '';
+                matches.forEach(match => {
+                    const item = document.createElement('div');
+                    item.className = 'search-suggestion-item';
+                    item.innerHTML = `
+                        <div>
+                            <strong style="display:block;">${match.name}</strong>
+                            <span style="font-size:0.75rem; color:var(--text-secondary);">${match.description}</span>
+                        </div>
+                        <span class="suggestion-badge">${match.id}</span>
+                    `;
+                    item.addEventListener('click', () => {
+                        switchWorkspace(match.id);
+                        wsSearch.value = match.name;
+                        searchSuggestions.style.display = 'none';
+                    });
+                    searchSuggestions.appendChild(item);
+                });
+                searchSuggestions.style.display = 'block';
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.workspace-search-container')) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+
+        connect();
+    </script>
+</body>
+</html>

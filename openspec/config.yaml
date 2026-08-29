@@ -1,0 +1,92 @@
+schema: spec-driven
+
+context: |
+  Proyecto: RayRabbit — Infraestructura de Interoperabilidad y Agnostica de Próxima Generación de IA (AI TCP/IP + TLS + HTTP).
+  Visión y Posicionamiento: Estándar neutral de capa L3 para conectar agentes heterogéneos, SDKs soberanos (herramientas atómicas de dominio (SDK)) y propietarios (ej. ADKs, SDKs, OpenClaw, Hermes Agent, OpenHands, Claude Code / Codex CLI/SDK / Antigravity CLI/SDK, N-Agentes...) (Python/JS), portales visuales A2UI y frameworks cognitivos (CrewAI, AutoGen, LangChain, Microsoft Agent Framework (MAF), LlamaIndex, N-frameworks cognitivos...) mediante mediación horizontal sin coordinadores centrales ni estado global compartido (Shared-Nothing Architecture).
+
+  Topología en Estrella y Hub Architecture:
+  - Central Hub API Server (FastAPI :8005): Ingesta /api/publish-message, A2ARouter, Business Bus y WebSocket Ingress soberano /ws.
+  - Central Hub MCP Server (WebSocket :8008): Catálogo unificado de herramientas en memoria (tools/list, tools/call) y motor MCP v2.
+  - Dynamic SDK Nodes & Proxies: Nodos cliente (Python rayrabbit_client, JS @rayrabbit-client) conectados por /ws.
+    El Hub los encapsula mediante SovereignWebSocketProxy sin requerir que los clientes expongan servidores HTTP.
+  - Framework Services Fedeados Actualmente(:8001 CrewAI, :8002 LangChain, :8003 AutoGen): Microservicios federados con bridges             declarativos.
+  - Desambiguación y Clasificación Dinámica MCP: Las herramientas del catálogo MCP DEBEN diferenciar herramientas atómicas de dominio (SDK)
+    de herramientas de orquestación cognitiva de frameworks (ej. execute_crew_task). Toda herramienta DEBE incluir el metadato
+    dinámico 'category' o 'namespace' en su esquema JSON Schema para permitir inferencia agnóstica sin acoplamiento estático.
+  - RayRabbit no es: un orquestador acoplado a N frameworks, ni N-Agentes fijos ni a un caso de uso particular (logística, finanzas, cripto, etc.).   
+
+  Modos de Comunicación y Despliegue de Red:
+  - Estrategia de Descubrimiento (discovery.communication_mode):
+    * 'bridge': Modo Zero-Code para servicios legacy que usan OpenAPI + listeners de eventos.
+    * 'p2p': Modo Nativo Soberano para comunicación A2A/MCP directa con Handshake Criptográfico Bidireccional Mutuo.
+  - Modo de Red por Servicio (external_services.mode):
+    * 'local': Servicio ejecutado en la misma máquina local o red privada de contenedores (127.0.0.1 / Docker bridge).
+    * 'remote': Servicio remoto ejecutado en otra red corporativa, VPC o multicloud sobre HTTPS/WSS con validación JWS estricta.
+
+  Esquemas de Datos y Validación:
+  - Backend (Python Pydantic v2):
+    * AgentCard / AgentRegistration: Metadatos A2A v1.0, capabilities, endpoints y versionado.
+    * A2AMessage / JSONRPCMessage: Mensajería JSON-RPC 2.0 (jsonrpc, method, params, id, result, error).
+    * MCPTool / MCPToolCall / MCPToolResult: Definición de herramientas con JSON Schema 2020-12 y metadato 'category'.
+    * MAESTROSecurityToken / JWSPayload: Encabezados JWS (X-RayRabbit-JWS, X-RayRabbit-Agent-ID, X-RayRabbit-Bridge-Public-Key-PEM).
+    * TaskEngine Schema: Tareas asíncronas de larga duración (task_id, status: pending|running|completed|failed|paused, progress, result).
+  - Frontend / SDKs (TypeScript Zod):
+    * Esquemas Zod en @rayrabbit-client y @rayrabbit-a2ui para validación estricta de mensajes WS, SurfaceUpdates,
+      Component Trees, ActionEvents y payloads MCP del cliente.
+
+  Componentes Core & Resilience:
+  - MessageBus (rayrabbit/core/message_bus.py): Pub/Sub asíncrono, send_and_wait sincronizado, A2ARouter y OfflineToleranceService.
+  - TaskEngine (rayrabbit/core/task_engine/): Gestor de ciclo de vida de tareas asíncronas (manager.py + store.py SQLite).
+
+  Seguridad MAESTRO & AIDA (Zero-Trust):
+  - MAESTRO Zero-Trust (Mutual Desconfianza): Handshake Criptográfico Bidireccional Mutuo (Mutual PoP con PEMs) vía
+    /api/security/register entre Servicios/A2UI y Hub. Firmas JWS (RFC 7515) obligatorias en cada mensaje.
+  - Almacenamiento Criptográfico: StandaloneKeyStore cifrado simétricamente con AES-256-GCM y PBKDF2HMAC (600,000 iteraciones)
+    para identidades (.key/.json) en OSS, y KMS Cloud/HSM sin llaves locales en disco para Enterprise Shield.
+  - AuditManager: Log estructurado inmutable estilo Blockchain con encadenamiento de hashes prev-hash en SQLite privado.
+  - AIDA Ouroboros (Enterprise): Motor defensivo cognitivo activo con evaluador LLM secundario de 2do nivel contra prompt
+    injections recursivas, escalada de privilegios y cebos cognitivos (Honeytokens).
+  - AIOS Runtime: Sandboxing WebAssembly (wasmtime) con límites de fuel, 1 MB stack max y aislamiento total de sockets de red.
+
+  Protocolos Nativos:
+  - A2A (Google): JSON-RPC 2.0 sobre HTTP/WS, AgentCards, ruteo P2P Soberano con Hub Fallback.
+  - MCP / MCPv2 (Anthropic): Transporte WebSocket nativo (:8008), JSON Schema 2020-12, TaskEngine asíncrono.
+  - A2UI (v0.9.1): Motor de UI reactivo (---a2ui_JSON---, beginRendering, surfaceUpdate, updateDataModel) donde SovereignA2UIAgent
+    consume Servicios/SDKs vía MCP/A2A y transmite eventos visuales a clients/javascript/@rayrabbit-a2ui y clients/javascript/apps/sdk-a2ui.
+
+  Paquetes y Módulos:
+  - Core Python: rayrabbit (agents, communication, core, enterprise, protocols, resilience, resources, security, transports, utils).
+  - SDKs / Frontend: clients/python/rayrabbit_client, clients/javascript/@rayrabbit-client, clients/javascript/@rayrabbit-a2ui, clients/javascript/apps/sdk-a2ui.
+
+  Referencias de Arquitectura y Fuente de la Verdad (Consultar bajo demanda por dominio):
+  - infra-negocio/01_Vision_Negocio_y_Licenciamiento.md: Visión L3, Modelo Open Core (AGPL-3.0 vs Apache 2.0 vs Enterprise), Moat y Noma.
+  - infra-negocio/02_Arquitectura_Core_y_Protocolos.md: Topología en Estrella, MessageBus, communication_mode (bridge/p2p), mode (local/remote), Desambiguación MCP por Metadatos Dinámicos, A2A, MCP, A2UI v0.9.1 y Escalado de Red.
+  - infra-negocio/03_Seguridad_MAESTRO_AIDA_y_Runtime.md: MAESTRO Zero-Trust, Mutual PoP, JWS, StandaloneKeyStore, AIDA Ouroboros, Wasm Sandboxing y TaskEngine.
+
+  Tech Stack & Estándares de Código:
+  - Backend: Python 3.10+ (PEP 8).
+  - Regla Estricta de Agnosticismo de Entorno en Python: NUNCA usar os.path ni sys.path. Usar SIEMPRE pathlib.Path o importlib.resources.
+  - Estándar de Implementación: 100% código funcional sin mocks, simulaciones ni placeholders. Producción real.
+
+rules:
+  proposal:
+    - Declarar impacto explícito en capas HUB / BUS / MAESTRO / PROTOCOLOS / TASKENGINE si aplica.
+    - Indicar si el cambio afecta a los SDKs (@rayrabbit-client, rayrabbit_client) o al visualizer (@rayrabbit-a2ui, clients/javascript/apps/sdk-a2ui).
+    - Incluir plan de rollback si el cambio altera contratos A2A, MCP o A2UI v0.9.1 existentes.
+
+  specs:
+    - Formato Given/When/Then para escenarios de prueba.
+    - Referenciar explícitamente infra-negocio/02_Arquitectura_Core_y_Protocolos.md cuando se definan o modifiquen contratos A2A/MCP/A2UI, metadatos de categoría MCP, communication_mode o modos de red.
+    - Referenciar infra-negocio/03_Seguridad_MAESTRO_AIDA_y_Runtime.md para especificaciones de seguridad, JWS o Handshake PoP.
+    - Prohibido inventar convenciones de código o transporte que violen la Topología en Estrella o los 6 Pilares Arquitectónicos.
+    - Prohibido hardcodear listas de nombres de herramientas ('if name in [...]') dentro del código de los agentes consumidores.
+
+  design:
+    - Incluir diagrama Mermaid de flujo y arquitectura especificando componentes afectados (HubPort, BusPort, MaestroPolicyPort, MCPAdapterPort, A2UIBridgePort, TaskEnginePort, SovereignSDKPort, FrameworkBridgePort).
+    - Especificar en qué paquete o módulo vive cada pieza (rayrabbit/core, rayrabbit/security, clients/python, etc.).
+    - Evaluar explícitamente el impacto en Zero-Trust (Mutual PoP, JWS, sanitización AIDA) y en la clasificación dinámico por metadatos del catálogo MCP.
+
+  tasks:
+    - Cada tarea debe referenciar rutas de archivos concretas y reales del repositorio.
+    - Tareas que toquen seguridad o protocolos requieren spec and design previa aprobada.
+    - Incluir tareas de prueba automatizadas (unit/integration) para validar la comunicación bidireccional y el cumplimiento de estándares.

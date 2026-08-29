@@ -1,0 +1,121 @@
+site_name: RayRabbit
+site_url: https://docs.rayrabbit.io
+site_description: RayRabbit - Next-Generation Neutral Layer 3 AI Interoperability Infrastructure (AI TCP/IP + TLS + HTTP)
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.png
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+
+extra_css:
+  - assets/stylesheets/rayrabbit.css
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: es
+          name: Español
+          build: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+
+extra:
+  analytics:
+    provider: google
+    property: G-NCQY7GJDZG
+  version:
+    provider: mike
+  enterprise_hub_url: https://hub.enterprise.rayrabbit.io
+
+# Navigation Structure mapped multi-language by mkdocs-static-i18n
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quickstart: getting-started/quickstart.md
+      - Configuration: getting-started/configuration.md
+  - Core Concepts:
+      - Architecture: concepts/architecture.md
+      - The 6 Pillars: concepts/pillars.md
+      - Protocols (A2A + MCP + A2AUI): concepts/protocols.md
+      - Security (MAESTRO): concepts/security.md
+      - Service Federation: concepts/federation.md
+  - Real-World Use Cases: use-cases.md
+  - Developer Guides:
+      - Sovereign Launchers: guides/launchers.md
+      - A2UI Portal Node: guides/a2ui.md
+      - Client SDKs (Python & JS): guides/client-sdks.md
+      - Integrations (LangChain, CrewAI, AutoGen): guides/integrations.md
+      - Agent-to-Agent (A2A) Spec: guides/a2a.md
+      - Model Context Protocol (MCP): guides/mcp.md
+      - MAESTRO Facade Security: guides/maestro.md
+  - API Reference:
+      - Hub API Endpoints: reference/api.md
+      - config.yaml: reference/config.md
+      - Environment Variables: reference/env-vars.md
+      - AGENTS.md Contracts: reference/agents-md.md
+  - Enterprise:
+      - Overview: enterprise.md
+      - Request Demo: enterprise/demo.md
+      - Speak with Architecture: enterprise/contact.md
+      - Plans & Pricing: enterprise/pricing.md
+      - Legal FAQ: enterprise/faq.md
+  - Contributing: contributing.md
+  - Roadmap: roadmap.md

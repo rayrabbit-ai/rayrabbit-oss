@@ -1,0 +1,76 @@
+{
+    "components": [
+        {
+            "id": "root",
+            "component": { "Column": { "children": ["crypto-title", "crypto-subtitle", "price-card", "actions-card", "footer-text"] } }
+        },
+        {
+            "id": "workspace-selector",
+            "component": { "Card": { "children": ["ws-title", "ws-buttons"], "variant": "elevated" } }
+        },
+        {
+            "id": "ws-title",
+            "component": { "Text": { "text": { "literalString": "🌐 Seleccionar Espacio de Trabajo" }, "variant": "caption" } }
+        },
+        {
+            "id": "ws-buttons",
+            "component": { "Row": { "children": ["btn-ws-logistics", "btn-ws-crypto"] } }
+        },
+        {
+            "id": "btn-ws-logistics",
+            "component": { "Button": { "text": { "literalString": "📦 SAP Logistics" }, "variant": "secondary", "action": { "type": "userAction", "id": "switch_workspace_logistics" } } }
+        },
+        {
+            "id": "btn-ws-crypto",
+            "component": { "Button": { "text": { "literalString": "₿ Crypto Trading" }, "variant": "primary", "action": { "type": "userAction", "id": "switch_workspace_crypto" } } }
+        },
+        {
+            "id": "crypto-title",
+            "component": { "Text": { "text": { "literalString": "📈 Crypto Trading Desk" }, "variant": "h1" } }
+        },
+        {
+            "id": "crypto-subtitle",
+            "component": { "Text": { "text": { "literalString": "Análisis en tiempo real y ejecución de órdenes federadas." }, "variant": "body" } }
+        },
+        {
+            "id": "price-card",
+            "component": { "Card": { "children": ["price-title", "price-body"] } }
+        },
+        {
+            "id": "price-title",
+            "component": { "Text": { "text": { "literalString": "💰 Cotizaciones Activas" }, "variant": "h3" } }
+        },
+        {
+            "id": "price-body",
+            "component": { "Text": { "text": { "literalString": "Consulta el precio de Bitcoin u otras criptomonedas directamente en la barra de chat." }, "variant": "body" } }
+        },
+        {
+            "id": "actions-card",
+            "component": { "Card": { "children": ["actions-title", "actions-row"] } }
+        },
+        {
+            "id": "actions-title",
+            "component": { "Text": { "text": { "literalString": "⚡ Acciones Rápidas" }, "variant": "h3" } }
+        },
+        {
+            "id": "actions-row",
+            "component": { "Row": { "children": ["btn-price", "btn-analyze", "btn-buy"] } }
+        },
+        {
+            "id": "btn-price",
+            "component": { "Button": { "text": { "literalString": "🔍 Consultar Precio BTC" }, "variant": "primary", "action": { "type": "userAction", "id": "quick-price" } } }
+        },
+        {
+            "id": "btn-analyze",
+            "component": { "Button": { "text": { "literalString": "📊 Analizar Sentimiento" }, "variant": "secondary", "action": { "type": "userAction", "id": "quick-analyze" } } }
+        },
+        {
+            "id": "btn-buy",
+            "component": { "Button": { "text": { "literalString": "🛒 Simular Compra" }, "variant": "secondary", "action": { "type": "userAction", "id": "quick-buy" } } }
+        },
+        {
+            "id": "footer-text",
+            "component": { "Text": { "text": { "literalString": "Conectado al Hub Soberano — Puerto 8005 | A2UI v0.9.1 | Cifrado E2E Activo" }, "variant": "caption" } }
+        }
+    ]
+}

@@ -1,0 +1,186 @@
+#"""
+#RayRabbit OSS - Universal Agent Interoperability Infrastructure
+#Copyright © 2024-2026 RayRabbit Labs, Inc.
+
+#Este archivo forma parte del núcleo de código abierto de RayRabbit y está
+#licenciado bajo la GNU Affero General Public License v3.0 only.
+
+#Puedes usar, modificar y redistribuir este archivo bajo los términos de la AGPL v3.
+#Consulta LICENSE-AGPLv3.txt en la raíz del repositorio para el texto completo.
+
+#SPDX-License-Identifier: AGPL-3.0-only
+
+# ====================================================================
+# Archivo de Configuración Core de la Infraestructura RayRabbit
+# ====================================================================
+#
+# Define la forma y los servicios disponibles para toda la infraestructura.
+# NO contiene secretos. Los secretos (tokens, API keys) son proporcionados
+# en tiempo de ejecución por los proyectos que utilizan los servicios,
+# siguiendo un patrón de credenciales "Just-In-Time".
+
+# --------------------------------------------------------------------
+# Configuración del Message Bus (Valores por defecto)
+# --------------------------------------------------------------------
+message_bus:
+  instance_id: "default_instance"
+  enable_persistence: true
+  max_message_history: 1000
+
+# --------------------------------------------------------------------
+# Configuración de Logging (Valores por defecto)
+# --------------------------------------------------------------------
+logging:
+  level: "INFO"
+  format_type: "colored"
+
+# --------------------------------------------------------------------
+# Configuración de Auditoría (AuditManager)
+# --------------------------------------------------------------------
+auditing:
+  enable_audit: true
+  storage_provider: "sqlite"
+  sqlite_db_path: "audit_logs/audit.db" # Ruta relativa a la raíz del proyecto
+
+# --------------------------------------------------------------------
+# Configuración de Seguridad (Valores por defecto)
+# --------------------------------------------------------------------
+security:
+  enable_auth: true
+  encryption_enabled: true
+  keystore_path: "keystore"
+  master_secret: ""
+  salt: ""
+
+# --------------------------------------------------------------------
+# Sección Custom: Servicios y Configuraciones Adicionales
+# --------------------------------------------------------------------
+custom:
+  # ===================================================================
+  # API de Ingestión de Eventos Externos
+  # ===================================================================
+  ingestion_api:
+    host: "127.0.0.1"
+    port: 8005
+    # Clave de API para asegurar el endpoint de ingestión.
+    api_key: "a7b3c9f8d2e1a6b0c8d4e2f1a7b3c9f8d2e1a6b0c8d4e2f1a7b3c9f8d2e1a6b0"
+
+  # Configuración del servidor MCP (Model Context Protocol)
+  mcp_server:
+    host: "0.0.0.0"
+    port: 8008
+
+  # ===================================================================
+  # Estrategia de Descubrimiento de Servicios
+  # ===================================================================
+  discovery:
+    strategy: static
+    communication_mode: 'p2p'  # 'bridge' (OpenAPI+listeners) o 'p2p' (A2A/MCP directo, solo Handshake)
+    p2p_timeout: 300           # Global timeout para P2P routing (resiliencia para inferencia CPU local)
+
+  # ===================================================================
+  # Registro de Servicios Externos (para estrategia 'static')
+  # ===================================================================
+  external_services:
+    - name: "crewai_service"
+      description: "Servicio externo que envuelve un equipo de CrewAI."
+      mode: "local"
+      address: "http://127.0.0.1:8001"
+      topics: ["crewai_service_bridge"]  # Añadir suscripción al topic
+      
+      # Configuración de red (cross-platform safe)
+      network:
+        timeout_total: 180           # Aumentado a 180s para inferencias cognitivas
+        timeout_connect: 15          # Connect redundante
+        timeout_read: 180            # Read timeout para LLMs
+        keepalive_timeout: 180       # Keep-alive persistente
+        max_retries: 5               # Más reintentos para resiliencia
+        retry_delay_seconds: 3       # Espera entre fallos
+      
+      endpoints:
+        - name: "invoke"
+          path: "/invoke"
+          method: "POST"
+          description: "Ejecuta un equipo de CrewAI para una tarea específica."
+
+    - name: "langchain_service"
+      description: "Servicio externo que envuelve una cadena de LangChain."
+      mode: "local"
+      address: "http://127.0.0.1:8002"
+      topics: ["langchain_service_bridge"]  # Añadir suscripción al topic
+      
+      # Configuración de red (resiliente a LLMs remotos)
+      network:
+        timeout_total: 180           # 180s para tareas pesadas
+        timeout_connect: 15          # Connect redundante
+        timeout_read: 180            # Read timeout
+        keepalive_timeout: 180       # TCP keep-alive
+        max_retries: 3               # Tolerancia a fallos
+        retry_delay_seconds: 2       # Backoff
+      
+      endpoints:
+        - name: "invoke"
+          path: "/invoke"
+          method: "POST"
+          description: "Invoca una cadena de Langchain (LCEL) con un prompt y variables."
+
+    - name: "autogen_service"
+      description: "Servicio externo que envuelve un chat de agentes de AutoGen."
+      mode: "local"
+      address: "http://127.0.0.1:8003"
+      topics: ["autogen_service_bridge"]  # Añadir suscripción al topic
+      
+      # Configuración de red (multi-agent chat)
+      network:
+        timeout_total: 180           # AutoGen multi-agent (3-5 turnos)
+        timeout_connect: 15          # Connect redundante
+        timeout_read: 180            # Read timeout para conversación
+        keepalive_timeout: 180       # TCP keep-alive
+        max_retries: 3               # Tolerancia a fallos
+        retry_delay_seconds: 2       # Backoff
+      
+      endpoints:
+        - name: "invoke"
+          path: "/invoke"
+          method: "POST"
+          description: "Inicia una conversación entre agentes de AutoGen."
+
+  # ===================================================================
+  # Registro de Nodos de Aplicación a iniciar con el cluster
+  # ===================================================================
+  app_nodes:
+    - name: "A2UI"
+      color: "LIGHTMAGENTA_EX"
+      path: "rayrabbit/examples/universal_a2ui_agent.py"
+    - name: "SYSTEM_TOOLS"
+      color: "LIGHTYELLOW_EX"
+      path: "examples/nodes/system_tools_node.py"
+    - name: "MEMORY_NODE"
+      color: "LIGHTBLUE_EX"
+      path: "examples/nodes/sovereign_memory_node.py"
+    - name: "CRYPTO"
+      color: "LIGHTGREEN_EX"
+      path: "examples/use_cases/crypto/crypto_agent.py"
+    - name: "LOGISTICS"
+      color: "LIGHTCYAN_EX"
+      path: "examples/use_cases/logistics/logistics_agent.py"
+
+  # ===================================================================
+  # Registro de Agentes Internos (para el RayRabbitFramework)
+  # ===================================================================
+  internal_agents: []
+  # Los agentes específicos de los ejemplos deben cargarse dinámicamente o
+  # especificarse en un config.yaml de la propia aplicación.
+
+  # ===================================================================
+  # Registro de Workspaces / Casos de Uso disponibles en la UI
+  # ===================================================================
+  workspaces:
+    - id: "logistics"
+      name: "SAP Logistics"
+      description: "Manage deliveries, active routes, and drivers"
+      icon: "truck"
+    - id: "crypto"
+      name: "Crypto Trading"
+      description: "Track crypto prices, wallets, and buy/sell actions"
+      icon: "chart"

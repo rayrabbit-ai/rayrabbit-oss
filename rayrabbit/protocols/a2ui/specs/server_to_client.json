@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a2ui.org/specification/v0.9.1/server_to_client.json",
+  "title": "A2UI Message Schema",
+  "description": "Describes a JSON payload for an A2UI (Agent to UI) message, which is used to dynamically construct and update user interfaces.",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/BeginRenderingMessage" },
+    { "$ref": "#/$defs/SurfaceUpdateMessage" },
+    { "$ref": "#/$defs/UpdateDataModelMessage" },
+    { "$ref": "#/$defs/DeleteSurfaceMessage" }
+  ],
+  "$defs": {
+    "BeginRenderingMessage": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "v0.9.1"
+        },
+        "beginRendering": {
+          "type": "object",
+          "description": "Signals the client to create a new surface and begin rendering it.",
+          "properties": {
+            "surfaceId": {
+              "type": "string",
+              "description": "The unique identifier for the UI surface to be rendered."
+            },
+            "catalogId": {
+              "description": "A string that uniquely identifies this catalog.",
+              "type": "string"
+            },
+            "theme": {
+              "type": "object",
+              "description": "Initial theme parameters."
+            },
+            "sendDataModel": {
+              "type": "boolean"
+            }
+          },
+          "required": ["surfaceId", "catalogId"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["beginRendering", "version"],
+      "additionalProperties": false
+    },
+    "SurfaceUpdateMessage": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "v0.9.1"
+        },
+        "surfaceUpdate": {
+          "type": "object",
+          "description": "Updates a surface with a new set of components.",
+          "properties": {
+            "surfaceId": {
+              "type": "string"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["surfaceId", "components"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["surfaceUpdate", "version"],
+      "additionalProperties": false
+    },
+    "UpdateDataModelMessage": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "v0.9.1"
+        },
+        "updateDataModel": {
+          "type": "object",
+          "description": "Updates the data model for an existing surface. This message can be sent multiple times to update the data model. The createSurface message MUST have been previously sent with the 'catalogId' that is in this message.",
+          "properties": {
+            "surfaceId": {
+              "type": "string",
+              "description": "The unique identifier for the UI surface this data model update applies to."
+            },
+            "path": {
+              "type": "string",
+              "description": "An optional path to a location within the data model (e.g., '/user/name'). If omitted, or set to '/', refers to the entire data model."
+            },
+            "value": {
+              "description": "The data to be updated in the data model. If present, the value at 'path' is replaced (or created). If omitted, the key at 'path' is removed.",
+              "additionalProperties": true
+            }
+          },
+          "required": ["surfaceId"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["updateDataModel", "version"],
+      "additionalProperties": false
+    },
+    "DeleteSurfaceMessage": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "v0.9.1"
+        },
+        "deleteSurface": {
+          "type": "object",
+          "description": "Signals the client to delete the surface identified by 'surfaceId'. The createSurface message MUST have been previously sent with the 'catalogId' that is in this message.",
+          "properties": {
+            "surfaceId": {
+              "type": "string",
+              "description": "The unique identifier for the UI surface to be deleted."
+            }
+          },
+          "required": ["surfaceId"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["deleteSurface", "version"],
+      "additionalProperties": false
+    }
+  }
+}

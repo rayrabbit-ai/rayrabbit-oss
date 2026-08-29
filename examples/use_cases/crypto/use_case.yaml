@@ -1,0 +1,4 @@
+name: Crypto Trading Dashboard
+description: Caso de uso demostrativo de anlisis de criptomonedas y trading simulado.
+version: "1.0.0"
+agent_id: crypto_ui_manager

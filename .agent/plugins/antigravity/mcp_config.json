@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "rayrabbit_mesh": {
+      "command": "python",
+      "args": ["${pluginDir}/server/mcp_server.py"],
+      "env": {
+        "RAYRABBIT_HUB_URL": "http://127.0.0.1:8005",
+        "RAYRABBIT_AGENT_ID": "antigravity_core",
+        "RAYRABBIT_TIMEOUT": "10.0"
+      }
+    },
+    "rayrabbit_hub_sse": {
+      "url": "http://127.0.0.1:8005/api/mcp/sse",
+      "transport": "sse"
+    }
+  }
+}

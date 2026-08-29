@@ -1,0 +1,188 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rayrabbit-oss"
+version = "0.1.0"
+description = "RayRabbit: Universal Interoperability Infrastructure for AI Agents"
+readme = "README.md"
+license = {text = "AGPL-3.0-only"}
+authors = [
+    { name = "RayRabbit Development Team" }
+]
+maintainers = [
+    { name = "RayRabbit Development Team" }
+]
+keywords = [
+    "ai", "agents", "framework", "interoperability", "a2a", "mcp", "a2ui", "OpenApi",
+    "artificial intelligence", "multi-agent", "distributed systems",
+    "security", "encryption", "authentication", "authorization"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Affero General Public License v3 (AGPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Security :: Cryptography",
+    "Topic :: System :: Networking"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "aiohttp>=3.8.0",
+    "websockets>=11.0.0",
+    "pydantic>=2.0.0",
+    "cryptography>=41.0.0",
+    "jsonschema>=4.17.0",
+    "bcrypt>=4.0.0",
+    "PyJWT>=2.8.0",
+    "requests>=2.31.0",
+    "Authlib>=1.3.0",
+    "pyotp",
+    "types-setuptools",
+    "fastapi>=0.118.0",
+    "uvicorn>=0.35.0",
+    "apscheduler>=3.10.4",
+    "prompt_toolkit>=3.0.0",
+    "python-dotenv>=1.0.0",
+	"sqlalchemy>=2.0.0",
+    "psycopg2-binary>=2.9.9",
+    "litellm[proxy]>=1.38.5",
+    "boto3>=1.34.0",
+    "colorama>=0.4.6"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.19.1",
+    "pre-commit>=3.0.0"
+]
+docs = [
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "myst-parser>=1.0.0"
+]
+integrations = [
+    "openai>=1.3.0",
+    "google-genai>=1.56.0"
+]
+examples = [
+    "slack_bolt>=1.18.0"
+]
+all = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "myst-parser>=1.0.0",
+    "openai>=1.3.0",
+    "google-genai>=1.56.0"
+]
+
+[project.urls]
+Homepage = "https://rayrabbit-ai.github.io/"
+Documentation = "https://rayrabbit-ai.github.io/docs"
+Repository = "https://github.com/rayrabbit-ai/rayrabbit-oss"
+"Bug Tracker" = "https://github.com/rayrabbit-ai/rayrabbit-oss/issues"
+Changelog = "https://github.com/rayrabbit-ai/rayrabbit-oss/blob/main/CHANGELOG.md"
+
+[project.scripts]
+rayrabbit = "rayrabbit.cli.main:cli_entry"
+rayrabbit-ecosystem = "rayrabbit.cli.main:cli_entry_ecosystem"
+rayrabbit-server = "rayrabbit.server:main"
+rayrabbit-agent = "rayrabbit.agents.cli:main"
+rayrabbit-run = "rayrabbit.cli.run:main"
+
+[project.entry-points."rayrabbit.projects"]
+logistics_orchestration = "rayrabbit.examples.logistics_use_case.project:LogisticsOrchestrationProject"
+logistics_classic = "rayrabbit.examples.logistics_use_case.project:LogisticsClassicProject"
+
+[tool.setuptools.packages.find]
+include = ["rayrabbit*"]
+exclude = [
+    "rayrabbit.enterprise*",
+    "tests*",
+    "docs*"
+]
+
+[tool.setuptools.package-data]
+rayrabbit = [
+    "config/*.yaml",
+    "config/*.json",
+    "templates/*.py",
+    "schemas/*.json",
+    "examples/**/*.txt"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312", "py313"]
+include = '\.pyi?$'
+extend-exclude = '''
+/
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "security: marks tests as security tests",
+    "e2e: marks tests as end-to-end tests requiring a live RayRabbit Hub on port 8005",
+    "e2e_live: marks tests as live LLM evaluations requiring real API tokens"
+]
+
+[tool.coverage.run]
+source = ["rayrabbit"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == \"__main__\":"
+]

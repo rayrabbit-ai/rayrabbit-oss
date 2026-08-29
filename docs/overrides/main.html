@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <style>
+    /* Toast styles */
+    #enterprise-toast {
+      visibility: hidden;
+      min-width: 320px;
+      margin-left: -160px;
+      background: rgba(103, 58, 183, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      bottom: 30px;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255, 215, 0, 0.2);
+      font-family: 'Outfit', 'Inter', sans-serif;
+      transition: visibility 0s, opacity 0.5s ease;
+      opacity: 0;
+    }
+    #enterprise-toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <script>
+    // --- RayRabbit Sovereign & Anonymous Analytics Hub ---
+    // Generates an anonymous session identifier (non-PII, purely session-bound)
+    let anonSessionId = sessionStorage.getItem("rayrabbit_anon_session");
+    if (!anonSessionId) {
+      anonSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+      sessionStorage.setItem("rayrabbit_anon_session", anonSessionId);
+    }
+
+    function logSovereignEvent(eventType, targetElement, metadata = {}) {
+      const eventPayload = {
+        timestamp: new Date().toISOString(),
+        sessionId: anonSessionId,
+        url: window.location.pathname,
+        eventType: eventType,
+        targetElement: targetElement,
+        metadata: metadata
+      };
+
+      // 1. Transparent Console Logging (Sovereign Visibility)
+      console.log(`%c[RayRabbit Analytics] %c${eventType}%c: ${targetElement}`, 
+        "color: #a855f7; font-weight: bold;", 
+        "color: #fbbf24; font-weight: bold;", 
+        "color: #ffffff;", 
+        eventPayload
+      );
+
+      // 2. Local Storage Persistence (Local JSON/CSV Exportable)
+      try {
+        let localLogs = JSON.parse(localStorage.getItem("rayrabbit_behavior_metrics")) || [];
+        localLogs.push(eventPayload);
+        // Cap local logs at last 100 entries to prevent local storage bloat
+        if (localLogs.length > 100) localLogs.shift();
+        localStorage.setItem("rayrabbit_behavior_metrics", JSON.stringify(localLogs));
+      } catch (e) {
+        console.warn("Could not save to localStorage:", e);
+      }
+
+      // 3. Push to GA4 dataLayer (automatic integration if GA4 is loaded via mkdocs)
+      if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push({
+          event: `rayrabbit_${eventType}`,
+          anon_session_id: anonSessionId,
+          target_element: targetElement,
+          event_metadata: metadata
+        });
+      }
+    }
+
+    // Live Injection of Enterprise Toggle
+    document.addEventListener("DOMContentLoaded", function() {
+      // Track Page View
+      logSovereignEvent("page_view", window.location.pathname);
+
+      const header = document.querySelector(".md-header__inner");
+      if (!header) return;
+      
+      const toggleContainer = document.createElement("div");
+      toggleContainer.className = "rayrabbit-toggle-container";
+      toggleContainer.innerHTML = `
+        <span class="toggle-label oss-label">OSS</span>
+        <label class="premium-switch">
+          <input type="checkbox" id="enterprise-mode-checkbox">
+          <span class="slider round"></span>
+        </label>
+        <span class="toggle-label enterprise-label">Enterprise</span>
+      `;
+      
+      // Find the rightmost slot before the search or repo link
+      const search = header.querySelector(".md-search");
+      if (search) {
+        search.parentNode.insertBefore(toggleContainer, search);
+      } else {
+        header.appendChild(toggleContainer);
+      }
+      
+      const checkbox = document.getElementById("enterprise-mode-checkbox");
+      const body = document.querySelector("body");
+      
+      // Load saved preference
+      if (localStorage.getItem("rayrabbit-enterprise-mode") === "active") {
+        checkbox.checked = true;
+        body.classList.add("rayrabbit-enterprise-active");
+      }
+      
+      checkbox.addEventListener("change", function() {
+        if (this.checked) {
+          body.classList.add("rayrabbit-enterprise-active");
+          localStorage.setItem("rayrabbit-enterprise-mode", "active");
+          showEnterpriseToast(true);
+          logSovereignEvent("enterprise_toggle", "enterprise-mode-checkbox", { state: "active" });
+        } else {
+          body.classList.remove("rayrabbit-enterprise-active");
+          localStorage.setItem("rayrabbit-enterprise-mode", "inactive");
+          showEnterpriseToast(false);
+          logSovereignEvent("enterprise_toggle", "enterprise-mode-checkbox", { state: "inactive" });
+        }
+      });
+
+      // Track clicks on premium/CTA elements and links directed to enterprise sections
+      document.addEventListener("click", function(event) {
+        const target = event.target.closest("a, button, .cta-button, .premium-card");
+        if (!target) return;
+
+        // Is it a premium card or CTA?
+        if (target.classList.contains("cta-button") || target.closest(".enterprise-cta-grid")) {
+          logSovereignEvent("enterprise_cta_click", target.textContent.trim() || target.id || "CTA Button", {
+            href: target.getAttribute("href") || ""
+          });
+        } else if (target.getAttribute("href") && target.getAttribute("href").includes("enterprise")) {
+          logSovereignEvent("enterprise_link_click", target.textContent.trim() || "Enterprise Link", {
+            href: target.getAttribute("href")
+          });
+        }
+      });
+
+      // Inject Floating WhatsApp Button with strict inline sizing
+      const wappBtn = document.createElement("a");
+      wappBtn.className = "rayrabbit-floating-wapp";
+      wappBtn.href = "https://wa.me/5491124055854?text=" + encodeURIComponent("Hola, quisiera realizar una consulta técnica/comercial sobre RayRabbit.");
+      wappBtn.target = "_blank";
+      wappBtn.rel = "noopener noreferrer";
+      wappBtn.setAttribute("aria-label", "Contactar por WhatsApp");
+      wappBtn.style.cssText = "position: fixed; bottom: 25px; right: 25px; z-index: 9998; display: flex; align-items: center; gap: 10px; background: #25D366; color: #ffffff !important; border-radius: 50px; padding: 10px 18px; text-decoration: none !important; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);";
+      wappBtn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" style="width: 24px !important; height: 24px !important; min-width: 24px !important; max-width: 24px !important; display: block; flex-shrink: 0;"><path fill="#ffffff" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.33 7.04 9.07 7.11 8.84 7.36C8.61 7.61 7.97 8.21 7.97 9.42C7.97 10.63 8.86 11.8 8.98 11.96C9.11 12.13 10.74 14.64 13.22 15.71C15.28 16.6 15.7 16.42 16.14 16.38C16.59 16.34 17.58 15.79 17.78 15.22C17.98 14.64 17.98 14.15 17.92 14.05C17.86 13.95 17.7 13.89 17.45 13.76C17.21 13.64 16.01 13.05 15.78 12.97C15.56 12.89 15.4 12.85 15.24 13.09C15.08 13.34 14.61 13.89 14.47 14.05C14.33 14.22 14.19 14.24 13.94 14.12C13.7 14 12.92 13.74 12 12.92C11.28 12.28 10.79 11.49 10.65 11.24C10.51 11 10.63 10.87 10.76 10.75C10.87 10.64 11.01 10.46 11.13 10.32C11.26 10.17 11.3 10.07 11.38 9.91C11.46 9.74 11.42 9.6 11.36 9.48C11.3 9.35 10.83 8.2 10.64 7.73C10.45 7.27 10.25 7.33 10.1 7.32C9.96 7.32 9.79 7.32 9.63 7.32L9.53 7.03Z"/></svg>
+        <span style="color: #ffffff !important; font-weight: 700;">WhatsApp</span>
+      `;
+      document.body.appendChild(wappBtn);
+    });
+    function showEnterpriseToast(active) {
+      let toast = document.getElementById("enterprise-toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "enterprise-toast";
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = active 
+        ? "<strong>Enterprise Mode Active</strong><br>Showing ARK & Hypervisor premium layers" 
+        : "<strong>OSS Mode Active</strong><br>Standard Open Source view";
+      toast.classList.add("show");
+      setTimeout(() => { toast.classList.remove("show"); }, 3500);
+    }
+  </script>
+{% endblock %}

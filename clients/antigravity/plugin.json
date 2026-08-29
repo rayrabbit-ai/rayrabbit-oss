@@ -1,0 +1,8 @@
+{
+  "name": "rayrabbit",
+  "displayName": "RayRabbit Sovereign Mesh",
+  "version": "0.1.0",
+  "description": "Oficial RayRabbit Plugin para Google Antigravity. Conecta sesiones y agentes a la malla L3 (MessageBus, A2A, MCP y Memoria Soberana) en modo local y remoto.",
+  "author": "RayRabbit Labs",
+  "license": "AGPL-3.0-only"
+}
