@@ -1,6 +1,6 @@
 <div align="center">
 
-![RayRabbit Logo](./rayrabbit/resources/a2ui-dashboard/rayrabbit-ai.png)
+<img src="./rayrabbit/resources/a2ui-dashboard/rayrabbit-ai.png" alt="RayRabbit Logo" width="220" />
 
 <p align="center">
   <strong>Universal Interoperability Infrastructure for AI Agents</strong><br>
@@ -17,7 +17,7 @@
   <a href="https://github.com/a2ui-project/a2ui"><img src="https://img.shields.io/badge/A2UI-v0.9.1-8A2BE2?logo=react&logoColor=white&labelColor=24292e" alt="A2UI Protocol"></a>
   <a href="#verifiable-zero-trust-security--maestro-framework"><img src="https://img.shields.io/badge/security-MAESTRO%20Zero--Trust-D32F2F?logo=securityscorecard&logoColor=white&labelColor=24292e" alt="MAESTRO Security"></a>
   <a href="https://github.com/rayrabbit-ai/rayrabbit-oss/issues"><img src="https://img.shields.io/badge/community-GitHub-2ea44f?logo=github&logoColor=white&labelColor=24292e" alt="GitHub Community"></a>
-  <a href="https://discord.gg/rayrabbit"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white&labelColor=24292e" alt="Join Discord"></a>
+  <a href="https://discord.gg/dBJ2caqQ5Z"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white&labelColor=24292e" alt="Join Discord"></a>
 </p>
 
 <p align="center">
@@ -40,7 +40,7 @@ RayRabbit connects **heterogeneous agents, domain tools & SDKs (Python/JS), codi
 > 
 > * **Interim Dual-Track Transport**: Standard HTTP endpoints coexist with native streaming channels (`/ws/a2ui`, `/ws`).
 > * **Virtual Context & Infinite Memory (Active R&D)**: Engineering an OS-level Virtual Context Manager inspired by operating system virtual memory paging. RayRabbit enables LLMs to self-manage, page, and swap their own hierarchical memory tiers over native MCP tools, achieving boundless context continuity.
-> * **Community Feedback**: We welcome architectural feedback, use case discussions, and security RFCs in [GitHub Community & Issues](https://github.com/rayrabbit-ai/rayrabbit-oss/issues) and [Discord](https://discord.gg/rayrabbit).
+> * **Community Feedback**: We welcome architectural feedback, use case discussions, and security RFCs in [GitHub Community & Issues](https://github.com/rayrabbit-ai/rayrabbit-oss/issues) and [Discord](https://discord.gg/dBJ2caqQ5Z).
 
 ---
 
@@ -416,7 +416,7 @@ The **RayRabbit Security Team** will respond within **5 business days** of recei
 We are actively gathering feedback from AI developers, security researchers, and systems architects:
 
 - **GitHub Community & Issues**: [Participate on GitHub](https://github.com/rayrabbit-ai/rayrabbit-oss/issues)
-- **Discord Community**: [Join the RayRabbit Discord](https://discord.gg/rayrabbit)
+- **Discord Community**: [Join the RayRabbit Discord](https://discord.gg/dBJ2caqQ5Z)
 - **Security Advisories**: [Report vulnerabilities](https://github.com/rayrabbit-ai/rayrabbit-oss/security/advisories)
 - **GitHub Releases**: [Download source and binary releases](https://github.com/rayrabbit-ai/rayrabbit-oss/releases)
 
@@ -534,7 +534,7 @@ For organizations requiring enterprise compliance, KMS/HSM hardware keystores, W
   <a href="https://github.com/a2ui-project/a2ui"><img src="https://img.shields.io/badge/A2UI-v0.9.1-8A2BE2?logo=react&logoColor=white&labelColor=24292e" alt="Protocolo A2UI"></a>
   <a href="#seguridad-zero-trust-verificable--maestro-framework"><img src="https://img.shields.io/badge/seguridad-MAESTRO%20Zero--Trust-D32F2F?logo=securityscorecard&logoColor=white&labelColor=24292e" alt="Seguridad MAESTRO"></a>
   <a href="https://github.com/rayrabbit-ai/rayrabbit-oss/issues"><img src="https://img.shields.io/badge/comunidad-GitHub-2ea44f?logo=github&logoColor=white&labelColor=24292e" alt="Comunidad GitHub"></a>
-  <a href="https://discord.gg/rayrabbit"><img src="https://img.shields.io/badge/Discord-Unirse-5865F2?logo=discord&logoColor=white&labelColor=24292e" alt="Discord"></a>
+  <a href="https://discord.gg/dBJ2caqQ5Z"><img src="https://img.shields.io/badge/Discord-Unirse-5865F2?logo=discord&logoColor=white&labelColor=24292e" alt="Discord"></a>
 </p>
 
 <p align="center">
@@ -557,7 +557,7 @@ RayRabbit conecta **agentes heterogéneos, herramientas y SDKs de dominio (Pytho
 > 
 > * **Canal Dual Transitorio**: Coexisten endpoints HTTP REST con canales de streaming nativos (`/ws/a2ui`, `/ws`).
 > * **Contexto Virtual y Memoria Ilimitada (I+D Activo)**: Desarrollando un Gestor de Contexto Virtual inspirado en la memoria virtual de los sistemas operativos. RayRabbit permite a los LLMs autogestionar, paginar y conmutar su propia jerarquía de memoria a través de herramientas MCP nativas, logrando un contexto cognitivo ilimitado.
-> * **Feedback de la Comunidad**: Agradecemos comentarios sobre arquitectura, casos de uso y RFCs de seguridad en [Comunidad y Feedback de GitHub](https://github.com/rayrabbit-ai/rayrabbit-oss/issues) y [Discord](https://discord.gg/rayrabbit).
+> * **Feedback de la Comunidad**: Agradecemos comentarios sobre arquitectura, casos de uso y RFCs de seguridad en [Comunidad y Feedback de GitHub](https://github.com/rayrabbit-ai/rayrabbit-oss/issues) y [Discord](https://discord.gg/dBJ2caqQ5Z).
 
 ---
 
@@ -837,7 +837,7 @@ El equipo de seguridad de RayRabbit responderá en un plazo de **5 días laborab
 ## Comunidad & Feedback
 
 - **Comunidad y Feedback en GitHub**: [Participa en GitHub Issues y Discusiones](https://github.com/rayrabbit-ai/rayrabbit-oss/issues)
-- **Comunidad en Discord**: [Únete al Discord de RayRabbit](https://discord.gg/rayrabbit)
+- **Comunidad en Discord**: [Únete al Discord de RayRabbit](https://discord.gg/dBJ2caqQ5Z)
 - **Reportes de Seguridad**: [GitHub Security Advisories](https://github.com/rayrabbit-ai/rayrabbit-oss/security/advisories)
 - **Releases de GitHub**: [Descarga de código y binarios](https://github.com/rayrabbit-ai/rayrabbit-oss/releases)
 

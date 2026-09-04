@@ -5,6 +5,10 @@ The official Python client SDK for [RayRabbit](https://rayrabbit-ai.github.io), 
 ## Installation
 
 ```bash
+# Option A: Local editable install from source (Developer Preview)
+pip install -e clients/python/rayrabbit_client
+
+# Option B: PyPI package (Upcoming v0.1.0 release)
 pip install rayrabbit-client
 ```
 
@@ -41,6 +45,10 @@ SDK oficial de Python para [RayRabbit](https://rayrabbit-ai.github.io), la Infra
 ## Instalación
 
 ```bash
+# Opción A: Instalación editable local desde el código fuente (Developer Preview)
+pip install -e clients/python/rayrabbit_client
+
+# Opción B: Paquete oficial de PyPI (Próximamente versión v0.1.0)
 pip install rayrabbit-client
 ```
 

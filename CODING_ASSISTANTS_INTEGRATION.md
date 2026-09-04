@@ -26,12 +26,12 @@ graph LR
         A2UI["A2UI Visual Dashboard (:8006)"]
     end
 
-    CC -->|1. MCP Client (JSON config)| MCP_Srv
-    AGY -->|1. MCP Client / SDK Hook| MCP_Srv
-    OH -->|1. MCP Client or 2. REST Bridge| MCP_Srv
-    HA -->|3. WebSocket SDK (@node.mcp_tool)| WS_Proxy
-    CX -->|3. WebSocket SDK (@node.mcp_tool)| WS_Proxy
-    OH -->|4. DeclarativeBridge| Bridge
+    CC -->|"1. MCP Client (JSON config)"| MCP_Srv
+    AGY -->|"1. MCP Client / SDK Hook"| MCP_Srv
+    OH -->|"1. MCP Client or 2. REST Bridge"| MCP_Srv
+    HA -->|"3. WebSocket SDK (@node.mcp_tool)"| WS_Proxy
+    CX -->|"3. WebSocket SDK (@node.mcp_tool)"| WS_Proxy
+    OH -->|"4. DeclarativeBridge"| Bridge
 
     MCP_Srv <--> A2A_Bus
     WS_Proxy <--> A2A_Bus
@@ -224,12 +224,12 @@ graph LR
         A2UI["Dashboard Visual A2UI (:8006)"]
     end
 
-    CC -->|1. MCP Client (JSON config)| MCP_Srv
-    AGY -->|1. MCP Client / SDK Hook| MCP_Srv
-    OH -->|1. MCP Client o 2. REST Bridge| MCP_Srv
-    HA -->|3. WebSocket SDK (@node.mcp_tool)| WS_Proxy
-    CX -->|3. WebSocket SDK (@node.mcp_tool)| WS_Proxy
-    OH -->|4. DeclarativeBridge| Bridge
+    CC -->|"1. MCP Client (JSON config)"| MCP_Srv
+    AGY -->|"1. MCP Client / SDK Hook"| MCP_Srv
+    OH -->|"1. MCP Client o 2. REST Bridge"| MCP_Srv
+    HA -->|"3. WebSocket SDK (@node.mcp_tool)"| WS_Proxy
+    CX -->|"3. WebSocket SDK (@node.mcp_tool)"| WS_Proxy
+    OH -->|"4. DeclarativeBridge"| Bridge
 
     MCP_Srv <--> A2A_Bus
     WS_Proxy <--> A2A_Bus

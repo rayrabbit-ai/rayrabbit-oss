@@ -59,9 +59,10 @@ context: |
   - SDKs / Frontend: clients/python/rayrabbit_client, clients/javascript/@rayrabbit-client, clients/javascript/@rayrabbit-a2ui, clients/javascript/apps/sdk-a2ui.
 
   Referencias de Arquitectura y Fuente de la Verdad (Consultar bajo demanda por dominio):
-  - infra-negocio/01_Vision_Negocio_y_Licenciamiento.md: Visión L3, Modelo Open Core (AGPL-3.0 vs Apache 2.0 vs Enterprise), Moat y Noma.
-  - infra-negocio/02_Arquitectura_Core_y_Protocolos.md: Topología en Estrella, MessageBus, communication_mode (bridge/p2p), mode (local/remote), Desambiguación MCP por Metadatos Dinámicos, A2A, MCP, A2UI v0.9.1 y Escalado de Red.
-  - infra-negocio/03_Seguridad_MAESTRO_AIDA_y_Runtime.md: MAESTRO Zero-Trust, Mutual PoP, JWS, StandaloneKeyStore, AIDA Ouroboros, Wasm Sandboxing y TaskEngine.
+  - README.md: Visión L3, Topología en Estrella, Protocolos Nativos (A2A, MCP, A2UI) y Guía Rápida.
+  - SECURITY_SETUP.md: Seguridad MAESTRO Zero-Trust, Mutual PoP, Firmas JWS y StandaloneKeyStore.
+  - NODOS.md: Catálogo de Nodos Soberanos, Servicios Federados y Mapeo Dinámico de Puertos.
+  - CODING_ASSISTANTS_INTEGRATION.md: Integración de Asistentes CLI (Claude Code, Antigravity, OpenHands, Codex).
 
   Tech Stack & Estándares de Código:
   - Backend: Python 3.10+ (PEP 8).
@@ -76,8 +77,8 @@ rules:
 
   specs:
     - Formato Given/When/Then para escenarios de prueba.
-    - Referenciar explícitamente infra-negocio/02_Arquitectura_Core_y_Protocolos.md cuando se definan o modifiquen contratos A2A/MCP/A2UI, metadatos de categoría MCP, communication_mode o modos de red.
-    - Referenciar infra-negocio/03_Seguridad_MAESTRO_AIDA_y_Runtime.md para especificaciones de seguridad, JWS o Handshake PoP.
+    - Referenciar explícitamente README.md y NODOS.md cuando se definan o modifiquen contratos A2A/MCP/A2UI, metadatos de categoría MCP, communication_mode o modos de red.
+    - Referenciar SECURITY_SETUP.md para especificaciones de seguridad, JWS o Handshake PoP.
     - Prohibido inventar convenciones de código o transporte que violen la Topología en Estrella o los 6 Pilares Arquitectónicos.
     - Prohibido hardcodear listas de nombres de herramientas ('if name in [...]') dentro del código de los agentes consumidores.
 
