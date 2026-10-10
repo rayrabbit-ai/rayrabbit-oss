@@ -11,7 +11,7 @@ RayRabbit **NO** es un monolito agéntico, ni es otro framework cognitivo (como 
 En su lugar, RayRabbit es la **Infraestructura de Interoperabilidad de Próxima Generación L3 (AI TCP/IP + TLS + HTTP)**: una base soberana orientada a protocolos diseñada para interconectar frameworks de IA heterogéneos, SDKs y agentes autónomos a través de ecosistemas dispares.
 
 * **Mediación Horizontal Neutral**: Media de forma fluida intenciones, transiciones de estado y llamadas a herramientas entre frameworks de IA heterogéneos sin apoderarse de sus bucles internos de razonamiento.
-* **Topología en Estrella (Arquitectura Hub & Mesh)**: Núcleo Central Hub (`api/server.py` en `:8005`), Servidor MCP del Hub (`:8008`), Portal Visual A2UI (`:8006`), Servicios de Frameworks Cognitivos (`:8001-8003`) y Nodos SDK Dinámicos conectados mediante WebSockets persistentes (`ws://:8005/ws`).
+* **Arquitectura de Malla Soberana (Malla de Interoperabilidad L3)**: Pasarela Central L3 (`api/server.py` en `:8005`), Pasarela MCP del Core (`:8008`), Portal Visual A2UI (`:8006`), Servicios de Frameworks Federados (`:8001-8003`) y Nodos SDK Soberanos conectados mediante WebSockets persistentes (`ws://:8005/ws`).
 * **Arquitectura Shared-Nothing**: Elimina puntos únicos de falla (SPOF) y dependencias de estado global. Cada agente y servicio mantiene 100% de soberanía de datos con bases de datos SQLite privadas y pares de claves criptográficas aisladas.
 * **Protocolos Abiertos Nativos**: Implementa de forma nativa Google A2A (JSON-RPC 2.0), Anthropic MCP / MCPv2 (JSON Schema 2020-12) y A2UI v0.9.1.
 
@@ -35,10 +35,14 @@ Toda la comunicación en RayRabbit es Zero-Trust ("Nunca confíes, siempre verif
 * **Regla de Agnosticismo de Entorno en Python**:
   - **JAMÁS** uses `os.path` o `sys.path`.
   - **SIEMPRE** usa `pathlib.Path` para manipulación de archivos e `importlib.resources` para activos de paquetes.
+* **Regla de Mapeo Wire-Format (Invarianza de Código)**:
+  - **Entidad Arquitectónica**: Pasarela Core L3 y Enrutador de la Malla (`:8005`), Pasarela MCP del Core (`:8008`), Arquitectura de Malla Soberana.
+  - **Símbolo Wire en Runtime**: En el código fuente, argumentos CLI, variables de entorno y retos criptográficos, la Pasarela Core se identifica por el token inmutable `'hub'` (ej. `hub_url`, `RAYRABBIT_HUB_URL`, `service['name'] == 'HUB'`, `HUB-AUTH:`).
+  - **DIRECTIVA ESTRICTA PARA AGENTES IA**: JAMÁS intentes renombrar o refactorizar variables, parámetros o constantes que contengan `'hub'` en el código en ejecución. Trata a `'hub'` como un símbolo de transporte inmutable a nivel de protocolo (wire-level).
 * **Sin Mocks en Código de Producción**:
   - Las ediciones de código deben ser 100% funcionales, listas para producción, sin fallbacks ficticios ni captura silenciosa de excepciones.
 * **Desambiguación de Herramientas MCP**:
-  - Las herramientas MCP registradas en el Hub DEBEN incluir metadatos dinámicos (`category` o `namespace`).
+  - Las herramientas MCP registradas en la Pasarela Core DEBEN incluir metadatos dinámicos (`category` o `namespace`).
   - Los consumidores DEBEN inferir el caso de uso dinámicamente de los metadatos de `tools/list` (`tool.get("category")`). Nunca hardcodees listas de nombres de herramientas (`if name in [...]`).
 * **Desarrollo Guiado por Especificaciones (Spec-Driven Development / SDD)**:
   - Cambios arquitectónicos complejos deben seguir el flujo de OpenSpec usando `/opsx:propose` y `/opsx:apply`.
@@ -49,7 +53,7 @@ Toda la comunicación en RayRabbit es Zero-Trust ("Nunca confíes, siempre verif
 
 Para detalles arquitectónicos, contratos y lineamientos, los Agentes de Código IA deben consultar:
 
-* 📄 **[`README.md`](./README.md)**: Arquitectura universal L3, topología en estrella, endpoints y quickstart.
+* 📄 **[`README.md`](./README.md)**: Arquitectura universal L3, malla soberana distribuida, endpoints y quickstart.
 * ⚙️ **[`openspec/config.yaml`](./openspec/config.yaml)**: Estándares de configuración y reglas de validación OpenSpec SDD.
 * 📄 **[`CODING_ASSISTANTS_INTEGRATION.md`](./CODING_ASSISTANTS_INTEGRATION.md)**: Coordinación multi-asistente (Antigravity, Cursor, Claude Code, Codex).
 * 📄 **[`SKILL.md`](./SKILL.md)**: ADN de agente soberano, contratos de endpoints e identidad Zero-Trust.
@@ -67,7 +71,7 @@ Cuando se le instruye a un Agente de Código IA generar o integrar un nuevo agen
    - Regístralo en `config.yaml` bajo `external_services` con `mode: local` o `mode: remote`.
 2. **Vía B: Nodos SDK Dinámicos (`ws://:8005/ws`)**:
    - Usa `rayrabbit_client` (Python) o `@rayrabbit-client` (TypeScript).
-   - Anota las herramientas con `@node.mcp_tool(category="<dominio>")`. El Hub genera automáticamente un `SovereignWebSocketProxy`.
+   - Anota las herramientas con `@node.mcp_tool(category="<dominio>")`. La Pasarela Core genera automáticamente un `SovereignWebSocketProxy`.
 3. **Vía C: Nodos de Protocolo Nativo (`communication_mode: 'p2p'`)**:
    - Construye objetos `Message` estándar de A2A JSON-RPC 2.0.
    - Ejecuta el apretón de manos Proof of Possession (PoP) RSA-4096 sobre `/api/security/register`.

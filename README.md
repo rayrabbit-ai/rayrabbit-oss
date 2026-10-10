@@ -156,9 +156,9 @@ Every new agent, MCP tool, or A2UI dashboard connected to the network becomes in
 
 ---
 
-## Architecture & Star Topology
+## Architecture & Sovereign Mesh Topology
 
-The following diagram illustrates how the **RayRabbit Core Hub** orchestrates communication, security, tool registries, and visual telemetry across heterogeneous agentic entities:
+The following diagram illustrates how the **RayRabbit L3 Core Gateway** orchestrates communication, security, tool registries, and visual telemetry across heterogeneous agentic entities:
 
 ```mermaid
 graph TD
@@ -171,9 +171,9 @@ graph TD
         CLI["CLI Chatbot Client · rayrabbit chat"]:::oss
     end
 
-    subgraph HubCore ["RayRabbit Central Star Hub"]
-        FastAPIHub["FastAPI Core Hub · Port 8005<br/>- Ingress WebSocket /ws<br/>- MessageBus Async Pub/Sub<br/>- A2ARouter & Business Bus"]:::hub
-        MCPServer["Hub MCP Server · Port 8008<br/>- WebSocket Native Transport<br/>- Dynamic Tool Catalog (tools/list, tools/call)<br/>- TaskEngine Lifecycle Manager (MCPv2)"]:::hub
+    subgraph MeshCore ["RayRabbit L3 Core Gateway"]
+        FastAPIHub["FastAPI Core Gateway · Port 8005<br/>- Ingress WebSocket /ws<br/>- MessageBus Async Pub/Sub<br/>- A2ARouter & Business Bus"]:::hub
+        MCPServer["MCP Mesh Gateway · Port 8008<br/>- WebSocket Native Transport<br/>- Dynamic Tool Catalog (tools/list, tools/call)<br/>- TaskEngine Lifecycle Manager (MCPv2)"]:::hub
         MS["MAESTRO Security Core<br/>- AES-256-GCM StandaloneKeyStore<br/>- Mutual PoP Handshake & JWS Verification"]:::hub
     end
 
@@ -238,7 +238,7 @@ graph TD
 
 ### 2. Sovereign A2UI Agent & Multi-Pattern Pipeline Adaptability
 * **Sovereign A2UI Agent (`SovereignA2UIAgent`)**: Equipped with a plug-and-play visual telemetry agent that can be easily customized and configured for any agentic pipeline or cognitive pattern (sequential chains, hierarchical squad orchestrations, human-in-the-loop approvals, evaluator-optimizer loops, and group chats).
-* **Zero Front-End Rebuilds**: Agents translate their internal reasoning into reactive, declarative JSON surfaces (`---a2ui_JSON---`) rendered instantly in modern React/Web clients.
+* **Zero Front-End Rebuilds**: Agents translate their internal reasoning into reactive, declarative JSON surfaces rendered instantly in modern Web/React/Lit clients via the A2UI v0.9.1 standard.
 
 ### 3. TaskEngine Coupled to the MCPv2 Standard
 * **Asynchronous Task Management**: Enterprise-grade task engine (`rayrabbit/core/task_engine/`) tightly coupled to the new **MCPv2 (Model Context Protocol v2)** specification.
@@ -315,21 +315,23 @@ app = FastAPI()
 keystore = StandaloneKeyStore("./keys", master_secret="your-master-secret", salt="your-salt")
 jws_manager = StandaloneJWS(agent_id="finance_agent_v1", keystore=keystore)
 
-async def publish_to_hub(content_dict: dict):
-    # 2. A2A Protocol Message
+async def send_direct_p2p(peer_endpoint: str, content_dict: dict):
+    # 2. A2A Protocol Message (Direct P2P, Shared-Nothing)
     msg = Message(
         sender_id="finance_agent_v1",
         sender_name="Financial Analyst Node",
-        recipient_id="global_orchestrator",
-        message_type=MessageType.response,
+        recipient_id="risk_analysis_node",
+        message_type=MessageType.request,
         content=content_dict
     )
     
-    # 3. MAESTRO JWS Headers
+    # 3. MAESTRO JWS Cryptographic Signature (Zero-Trust)
     headers = jws_manager.get_jws_headers(msg.to_dict())
     
+    # Direct 1-hop P2P invocation to peer node's /a2a endpoint (no hub bottleneck)
     async with httpx.AsyncClient() as client:
-        await client.post("http://127.0.0.1:8005/api/publish-message", json=msg.to_dict(), headers=headers)
+        response = await client.post(f"{peer_endpoint}/a2a", json=msg.to_dict(), headers=headers)
+        return response.json()
 ```
 
 ---
@@ -673,7 +675,7 @@ Cada nuevo agente, herramienta MCP o dashboard que sumas a la red queda disponib
 
 ---
 
-## Arquitectura: Topología en Estrella
+## Arquitectura: Malla Soberana L3
 
 ```mermaid
 graph TD
@@ -686,7 +688,7 @@ graph TD
         CLI["Chatbot CLI · rayrabbit chat"]:::oss
     end
 
-    subgraph HubCore ["RayRabbit Hub Central en Estrella"]
+    subgraph MeshCore ["RayRabbit Pasarela Core L3"]
         FastAPIHub["Servidor FastAPI Core · Puerto 8005<br/>- Ingress WebSocket /ws<br/>- MessageBus Pub/Sub Asíncrono<br/>- A2ARouter"]:::hub
         MCPServer["Servidor MCP Hub · Puerto 8008<br/>- Transporte WebSocket Nativo<br/>- Catálogo Dinámico de Tools<br/>- TaskEngine (MCPv2)"]:::hub
         MS["Seguridad MAESTRO<br/>- StandaloneKeyStore AES-256-GCM<br/>- Handshake Mutual PoP & JWS"]:::hub
@@ -732,7 +734,7 @@ graph TD
 
 ### 2. Agente Soberano A2UI y Adaptabilidad a Múltiples Patrones Agénticos
 * **Agente Visual A2UI Soberano (`SovereignA2UIAgent`)**: Equipado con un agente de telemetría visual configurable fácilmente para cualquier pipeline o patrón agéntico (cadenas secuenciales, orquestación jerárquica de cuadrillas, aprobaciones Human-in-the-Loop, bucles evaluador-optimizador y chats de grupo).
-* **Sin reconstrucción de Frontend**: Los agentes traducen su razonamiento interno en superficies declarativas JSON (`---a2ui_JSON---`) que se renderizan instantáneamente en dashboards web reactivos.
+* **Sin reconstrucción de Frontend**: Los agentes traducen su razonamiento interno en superficies declarativas JSON que se renderizan instantáneamente en dashboards web reactivos mediante el estándar A2UI v0.9.1.
 
 ### 3. Motor de Tareas Acoplado al Estándar MCPv2
 * **Gestión Asíncrona de Tareas**: Motor de tareas empresarial (`rayrabbit/core/task_engine/`) acoplado nativamente a la nueva especificación **MCPv2 (Model Context Protocol v2)**.

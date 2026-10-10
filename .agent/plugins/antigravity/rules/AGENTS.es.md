@@ -11,7 +11,7 @@ RayRabbit **NO** es un monolito agéntico, ni es otro framework cognitivo (como 
 En su lugar, RayRabbit es la **Infraestructura de Interoperabilidad de Próxima Generación L3 (AI TCP/IP + TLS + HTTP)**: una base soberana orientada a protocolos diseñada para interconectar frameworks de IA heterogéneos, SDKs y agentes autónomos a través de ecosistemas dispares.
 
 * **Mediación Horizontal Neutral**: Media de forma fluida intenciones, transiciones de estado y llamadas a herramientas entre frameworks de IA heterogéneos sin apoderarse de sus bucles internos de razonamiento.
-* **Topología en Estrella (Arquitectura Hub & Mesh)**: Núcleo Central Hub (`api/server.py` en `:8005`), Servidor MCP del Hub (`:8008`), Portal Visual A2UI (`:8006`), Servicios de Frameworks Cognitivos (`:8001-8003`) y Nodos SDK Dinámicos conectados mediante WebSockets persistentes (`ws://:8005/ws`).
+* **Arquitectura de Malla Soberana y L3 Core Gateway**: Pasarela Core L3 & Mesh Router (`api/server.py` en `:8005`), Servidor MCP del Core Gateway (`:8008`), Portal Visual A2UI (`:8006`), Servicios de Frameworks Cognitivos (`:8001-8003`) y Nodos SDK Soberanos conectados mediante WebSockets persistentes (`ws://:8005/ws`).
 * **Arquitectura Shared-Nothing**: Elimina puntos únicos de falla (SPOF) y dependencias de estado global. Cada agente y servicio mantiene 100% de soberanía de datos con bases de datos SQLite privadas y pares de claves criptográficas aisladas.
 * **Protocolos Abiertos Nativos**: Implementa de forma nativa Google A2A (JSON-RPC 2.0), Anthropic MCP / MCPv2 (JSON Schema 2020-12) y A2UI v0.9.1.
 
@@ -49,7 +49,7 @@ Toda la comunicación en RayRabbit es Zero-Trust ("Nunca confíes, siempre verif
 
 Para detalles arquitectónicos, contratos y lineamientos, los Agentes de Código IA deben consultar:
 
-* 📄 **[`README.md`](./README.md)**: Arquitectura universal L3, topología en estrella, endpoints y quickstart.
+* 📄 **[`README.md`](./README.md)**: Arquitectura universal L3, malla soberana, endpoints y quickstart.
 * ⚙️ **[`openspec/config.yaml`](./openspec/config.yaml)**: Estándares de configuración y reglas de validación OpenSpec SDD.
 * 📄 **[`CODING_ASSISTANTS_INTEGRATION.md`](./CODING_ASSISTANTS_INTEGRATION.md)**: Coordinación multi-asistente (Antigravity, Cursor, Claude Code, Codex).
 * 📄 **[`SKILL.md`](./SKILL.md)**: ADN de agente soberano, contratos de endpoints e identidad Zero-Trust.

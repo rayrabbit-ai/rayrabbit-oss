@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-08-25 (Public Developer Preview)
 
 ### Added
-- **Core Hub & Central Star Topology**:
+- **L3 Core Gateway & Sovereign Mesh**:
   - FastAPI Core API Hub (`:8005`) with `/api/publish-message`, `/api/health`, and WebSocket ingress `/ws`.
   - Native Hub MCP Server (`:8008`) for unified dynamic tool catalog discovery (`tools/list`) and invocation (`tools/call`).
   - Asynchronous pub/sub `MessageBus` with synchronized `send_and_wait` and `OfflineToleranceService`.

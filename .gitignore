@@ -24,7 +24,7 @@ venv*/
 env/
 .env/
 ENV/
-# Cubre examples/services/*/venv/ y cualquier venv anidado
+# Cubre services/*/venv/ y cualquier venv anidado
 **/venv/
 **/venv_*/
 **/.venv/
@@ -47,6 +47,7 @@ audit_logs/
 *.db
 *.sqlite
 *.sqlite3
+!services/**/*.db
 *.pem
 *.key
 *.crt
@@ -91,8 +92,7 @@ node_modules/
 # ─── GitHub Pages / Documentation site ──────────────────────
 rayrabbit-ai.github.io/
 
-# ─── Documentación fuente MkDocs (se compila externamente) ──
-/docs/
+# ─── Documentación fuente MkDocs (fuentes Markdown en docs/) ─
 /docs_backup/
 
 # ─── MkDocs / site generado ──────────────────────────────────
@@ -131,4 +131,8 @@ dmypy.json
 # ─── Enterprise Proprietary Modules ─────────────────────────
 rayrabbit/enterprise/
 **/enterprise/
+
+# ─── RayRabbit Private Assets (Managed in separate private repos) ──
+book/
+www/
 

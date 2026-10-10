@@ -3,13 +3,15 @@ schema: spec-driven
 context: |
   Proyecto: RayRabbit — Infraestructura de Interoperabilidad y Agnostica de Próxima Generación de IA (AI TCP/IP + TLS + HTTP).
   Visión y Posicionamiento: Estándar neutral de capa L3 para conectar agentes heterogéneos, SDKs soberanos (herramientas atómicas de dominio (SDK)) y propietarios (ej. ADKs, SDKs, OpenClaw, Hermes Agent, OpenHands, Claude Code / Codex CLI/SDK / Antigravity CLI/SDK, N-Agentes...) (Python/JS), portales visuales A2UI y frameworks cognitivos (CrewAI, AutoGen, LangChain, Microsoft Agent Framework (MAF), LlamaIndex, N-frameworks cognitivos...) mediante mediación horizontal sin coordinadores centrales ni estado global compartido (Shared-Nothing Architecture).
+  
+  Regla de Dobles de Test (aclaración del Estándar de Implementación): "sin mocks, simulaciones ni placeholders" aplica a código de producción entregado. Los dobles de test (mocks/stubs/fixtures) existen solo en tests unitarios; las pruebas de integración y caracterización usan comportamiento real o golden masters capturados de ejecución real.
 
-  Topología en Estrella y Hub Architecture:
-  - Central Hub API Server (FastAPI :8005): Ingesta /api/publish-message, A2ARouter, Business Bus y WebSocket Ingress soberano /ws.
-  - Central Hub MCP Server (WebSocket :8008): Catálogo unificado de herramientas en memoria (tools/list, tools/call) y motor MCP v2.
+  Arquitectura de Malla Soberana y L3 Core Gateway:
+  - L3 Core Gateway & Mesh Router (FastAPI :8005): Ingesta /api/publish-message, A2ARouter, Business Bus y WebSocket Ingress soberano /ws.
+  - Core MCP Gateway (WebSocket :8008): Catálogo unificado de herramientas dinámico en memoria (tools/list, tools/call) y motor MCP v2.
   - Dynamic SDK Nodes & Proxies: Nodos cliente (Python rayrabbit_client, JS @rayrabbit-client) conectados por /ws.
-    El Hub los encapsula mediante SovereignWebSocketProxy sin requerir que los clientes expongan servidores HTTP.
-  - Framework Services Fedeados Actualmente(:8001 CrewAI, :8002 LangChain, :8003 AutoGen): Microservicios federados con bridges             declarativos.
+    La Pasarela Core los encapsula mediante SovereignWebSocketProxy sin requerir que los clientes expongan servidores HTTP.
+  - Framework Services Federados Actualmente (:8001 CrewAI, :8002 LangChain, :8003 AutoGen): Microservicios federados con bridges declarativos.
   - Desambiguación y Clasificación Dinámica MCP: Las herramientas del catálogo MCP DEBEN diferenciar herramientas atómicas de dominio (SDK)
     de herramientas de orquestación cognitiva de frameworks (ej. execute_crew_task). Toda herramienta DEBE incluir el metadato
     dinámico 'category' o 'namespace' en su esquema JSON Schema para permitir inferencia agnóstica sin acoplamiento estático.
@@ -38,28 +40,26 @@ context: |
   - MessageBus (rayrabbit/core/message_bus.py): Pub/Sub asíncrono, send_and_wait sincronizado, A2ARouter y OfflineToleranceService.
   - TaskEngine (rayrabbit/core/task_engine/): Gestor de ciclo de vida de tareas asíncronas (manager.py + store.py SQLite).
 
-  Seguridad MAESTRO & AIDA (Zero-Trust):
+  Seguridad MAESTRO (Zero-Trust):
   - MAESTRO Zero-Trust (Mutual Desconfianza): Handshake Criptográfico Bidireccional Mutuo (Mutual PoP con PEMs) vía
-    /api/security/register entre Servicios/A2UI y Hub. Firmas JWS (RFC 7515) obligatorias en cada mensaje.
+    /api/security/register entre Servicios/A2UI y la Pasarela Core L3. Firmas JWS (RFC 7515) obligatorias en cada mensaje.
   - Almacenamiento Criptográfico: StandaloneKeyStore cifrado simétricamente con AES-256-GCM y PBKDF2HMAC (600,000 iteraciones)
-    para identidades (.key/.json) en OSS, y KMS Cloud/HSM sin llaves locales en disco para Enterprise Shield.
+    para identidades (.key/.json) en OSS.
   - AuditManager: Log estructurado inmutable estilo Blockchain con encadenamiento de hashes prev-hash en SQLite privado.
-  - AIDA Ouroboros (Enterprise): Motor defensivo cognitivo activo con evaluador LLM secundario de 2do nivel contra prompt
-    injections recursivas, escalada de privilegios y cebos cognitivos (Honeytokens).
   - AIOS Runtime: Sandboxing WebAssembly (wasmtime) con límites de fuel, 1 MB stack max y aislamiento total de sockets de red.
 
   Protocolos Nativos:
-  - A2A (Google): JSON-RPC 2.0 sobre HTTP/WS, AgentCards, ruteo P2P Soberano con Hub Fallback.
+  - A2A (Google): JSON-RPC 2.0 sobre HTTP/WS, AgentCards, ruteo P2P Soberano con Fallback en Pasarela Core L3.
   - MCP / MCPv2 (Anthropic): Transporte WebSocket nativo (:8008), JSON Schema 2020-12, TaskEngine asíncrono.
-  - A2UI (v0.9.1): Motor de UI reactivo (---a2ui_JSON---, beginRendering, surfaceUpdate, updateDataModel) donde SovereignA2UIAgent
+  - A2UI (v0.9.1): Motor de UI reactivo (JSON estructurado AST, beginRendering, surfaceUpdate, updateDataModel) donde SovereignA2UIAgent
     consume Servicios/SDKs vía MCP/A2A y transmite eventos visuales a clients/javascript/@rayrabbit-a2ui y clients/javascript/apps/sdk-a2ui.
 
   Paquetes y Módulos:
-  - Core Python: rayrabbit (agents, communication, core, enterprise, protocols, resilience, resources, security, transports, utils).
+  - Core Python: rayrabbit (agents, communication, core, protocols, resilience, resources, security, transports, utils).
   - SDKs / Frontend: clients/python/rayrabbit_client, clients/javascript/@rayrabbit-client, clients/javascript/@rayrabbit-a2ui, clients/javascript/apps/sdk-a2ui.
 
   Referencias de Arquitectura y Fuente de la Verdad (Consultar bajo demanda por dominio):
-  - README.md: Visión L3, Topología en Estrella, Protocolos Nativos (A2A, MCP, A2UI) y Guía Rápida.
+  - README.md: Visión L3, Arquitectura de Malla Soberana, Protocolos Nativos (A2A, MCP, A2UI) y Guía Rápida.
   - SECURITY_SETUP.md: Seguridad MAESTRO Zero-Trust, Mutual PoP, Firmas JWS y StandaloneKeyStore.
   - NODOS.md: Catálogo de Nodos Soberanos, Servicios Federados y Mapeo Dinámico de Puertos.
   - CODING_ASSISTANTS_INTEGRATION.md: Integración de Asistentes CLI (Claude Code, Antigravity, OpenHands, Codex).
@@ -67,11 +67,12 @@ context: |
   Tech Stack & Estándares de Código:
   - Backend: Python 3.10+ (PEP 8).
   - Regla Estricta de Agnosticismo de Entorno en Python: NUNCA usar os.path ni sys.path. Usar SIEMPRE pathlib.Path o importlib.resources.
+  - Regla de Mapeo Wire-Format: En diseño/ontología es Pasarela Core L3 / Malla Soberana. En runtime/código se preserva 'hub' como símbolo wire inmutable (hub_url, RAYRABBIT_HUB_URL, HUB-AUTH). PROHIBIDO refactorizar variables con 'hub'.
   - Estándar de Implementación: 100% código funcional sin mocks, simulaciones ni placeholders. Producción real.
 
 rules:
   proposal:
-    - Declarar impacto explícito en capas HUB / BUS / MAESTRO / PROTOCOLOS / TASKENGINE si aplica.
+    - Declarar impacto explícito en capas CORE GATEWAY / BUS / MAESTRO / PROTOCOLOS / TASKENGINE si aplica.
     - Indicar si el cambio afecta a los SDKs (@rayrabbit-client, rayrabbit_client) o al visualizer (@rayrabbit-a2ui, clients/javascript/apps/sdk-a2ui).
     - Incluir plan de rollback si el cambio altera contratos A2A, MCP o A2UI v0.9.1 existentes.
 
@@ -79,13 +80,13 @@ rules:
     - Formato Given/When/Then para escenarios de prueba.
     - Referenciar explícitamente README.md y NODOS.md cuando se definan o modifiquen contratos A2A/MCP/A2UI, metadatos de categoría MCP, communication_mode o modos de red.
     - Referenciar SECURITY_SETUP.md para especificaciones de seguridad, JWS o Handshake PoP.
-    - Prohibido inventar convenciones de código o transporte que violen la Topología en Estrella o los 6 Pilares Arquitectónicos.
+    - Prohibido inventar convenciones de código o transporte que violen la Arquitectura de Malla Soberana o los 6 Pilares Arquitectónicos.
     - Prohibido hardcodear listas de nombres de herramientas ('if name in [...]') dentro del código de los agentes consumidores.
 
   design:
-    - Incluir diagrama Mermaid de flujo y arquitectura especificando componentes afectados (HubPort, BusPort, MaestroPolicyPort, MCPAdapterPort, A2UIBridgePort, TaskEnginePort, SovereignSDKPort, FrameworkBridgePort).
+    - Incluir diagrama Mermaid de flujo y arquitectura especificando componentes afectados (CoreGatewayPort, BusPort, MaestroPolicyPort, MCPAdapterPort, A2UIBridgePort, TaskEnginePort, SovereignSDKPort, FrameworkBridgePort).
     - Especificar en qué paquete o módulo vive cada pieza (rayrabbit/core, rayrabbit/security, clients/python, etc.).
-    - Evaluar explícitamente el impacto en Zero-Trust (Mutual PoP, JWS, sanitización AIDA) y en la clasificación dinámico por metadatos del catálogo MCP.
+    - Evaluar explícitamente el impacto en Zero-Trust (Mutual PoP, JWS, validación de esquemas) y en la clasificación dinámica por metadatos del catálogo MCP.
 
   tasks:
     - Cada tarea debe referenciar rutas de archivos concretas y reales del repositorio.

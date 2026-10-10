@@ -11,7 +11,7 @@ RayRabbit is **NOT** an agentic monolith, nor is it another cognitive framework 
 Instead, RayRabbit is the **Next-Generation Interoperability Infrastructure L3 (AI TCP/IP + TLS + HTTP)** — a sovereign, protocol-driven foundation designed to interconnect heterogeneous AI frameworks, SDKs, and autonomous agents across disparate ecosystems.
 
 * **Neutral Horizontal Mediation**: Seamlessly mediates intentions, state transitions, and tool calls between heterogeneous AI frameworks without taking over their internal reasoning loops.
-* **Star Topology (Hub & Mesh Architecture)**: Central Hub Core (`api/server.py` on `:8005`), Hub MCP Server (`:8008`), A2UI Visual Portal (`:8006`), Cognitive Framework Services (`:8001-8003`), and Dynamic SDK Nodes connected via persistent WebSockets (`ws://:8005/ws`).
+* **Sovereign Mesh Architecture (L3 Internetworking Fabric)**: Core Gateway Router (`api/server.py` on `:8005`), Core MCP Gateway (`:8008`), A2UI Visual Portal (`:8006`), Federated Framework Services (`:8001-8003`), and Sovereign SDK Nodes connected via persistent WebSockets (`ws://:8005/ws`).
 * **Shared-Nothing Architecture**: Eliminates single points of failure (SPOF) and global state dependencies. Each agent and service maintains 100% data sovereignty with private SQLite databases and isolated cryptographic keypairs.
 * **Native Open Protocols**: Natively implements Google A2A (JSON-RPC 2.0), Anthropic MCP / MCPv2 (JSON Schema 2020-12), and A2UI v0.9.1.
 
@@ -35,10 +35,14 @@ All communication across RayRabbit is Zero-Trust ("Never Trust, Always Verify"):
 * **Environment Agnosticism Rule in Python**:
   - **NEVER** use `os.path` or `sys.path`.
   - **ALWAYS** use `pathlib.Path` for file manipulation and `importlib.resources` for package assets.
+* **Wire-Format Mapping Rule (Code Invariance)**:
+  - **Architectural Entity**: L3 Core Gateway & Mesh Router (`:8005`), Core MCP Gateway (`:8008`), Sovereign Mesh Architecture.
+  - **Runtime Wire Symbol**: In code source files, CLI flags, environment variables, and cryptographic handshakes, the Core Gateway is identified by the immutable Layer 3 wire symbol `'hub'` (e.g. `hub_url`, `RAYRABBIT_HUB_URL`, `service['name'] == 'HUB'`, `HUB-AUTH:`).
+  - **STRICT DIRECTIVE FOR AI CODING AGENTS**: DO NOT rename or refactor variables, parameters, or constants containing `'hub'` in runtime code. Treat `'hub'` as an immutable transport protocol token.
 * **No Mocking in Production Code**:
   - Code edits must be 100% functional, production-ready, without dummy fallbacks or silent exception swallowing.
 * **MCP Tool Disambiguation**:
-  - MCP tools registered in the Hub MUST include dynamic metadata (`category` or `namespace`).
+  - MCP tools registered in the Core Gateway MUST include dynamic metadata (`category` or `namespace`).
   - Consumers MUST infer `current_use_case` dynamically from `tools/list` metadata (`tool.get("category")`). Never hardcode lists of tool names (`if name in [...]`).
 * **Spec-Driven Development (SDD)**:
   - Complex architectural changes must follow the OpenSpec workflow using `/opsx:propose` and `/opsx:apply`.
@@ -49,7 +53,7 @@ All communication across RayRabbit is Zero-Trust ("Never Trust, Always Verify"):
 
 For architectural details, contracts, and guidelines, AI Coding Agents must consult:
 
-* 📄 **[`README.md`](./README.md)**: Universal L3 architecture, star topology, endpoints, and quickstart.
+* 📄 **[`README.md`](./README.md)**: Universal L3 architecture, sovereign mesh topology, endpoints, and quickstart.
 * ⚙️ **[`openspec/config.yaml`](./openspec/config.yaml)**: OpenSpec SDD configuration standards and validation rules.
 * 📄 **[`CODING_ASSISTANTS_INTEGRATION.md`](./CODING_ASSISTANTS_INTEGRATION.md)**: Multi-assistant coordination (Antigravity, Cursor, Claude Code, Codex).
 * 📄 **[`SKILL.md`](./SKILL.md)**: Sovereign agent DNA, endpoint contracts, and Zero-Trust identity.
@@ -67,7 +71,7 @@ When an AI Coding Agent is instructed to generate or integrate a new agent or se
    - Register in `config.yaml` under `external_services` with `mode: local` or `mode: remote`.
 2. **Path B: Dynamic SDK Nodes (`ws://:8005/ws`)**:
    - Use `rayrabbit_client` (Python) or `@rayrabbit-client` (TypeScript).
-   - Annotate tools with `@node.mcp_tool(category="<domain>")`. The Hub automatically spawns a `SovereignWebSocketProxy`.
+   - Annotate tools with `@node.mcp_tool(category="<domain>")`. The Core Gateway automatically spawns a `SovereignWebSocketProxy`.
 3. **Path C: Native Protocol Nodes (`communication_mode: 'p2p'`)**:
    - Construct standard A2A JSON-RPC 2.0 `Message` objects.
    - Execute Mutual Proof of Possession (PoP) RSA-4096 handshake over `/api/security/register`.

@@ -4,14 +4,14 @@ This directory contains official public client libraries and SDKs for **RayRabbi
 
 ---
 
-## RayRabbit Star Topology & Architecture
+## RayRabbit Sovereign Mesh & Architecture
 
-RayRabbit is the **Next-Generation Universal Interoperability Infrastructure L3** for AI agents (AI TCP/IP + TLS + HTTP). It is not a cognitive framework monolith, but a distributed star topology where the central infrastructure (**Hub Core**) connects three primary actor families in its reference implementation, with an agnostic architecture designed to support additional cognitive frameworks (Microsoft Agent Framework, LlamaIndex, Google ADKs), domain SDKs, and proprietary agent assistants:
+RayRabbit is the **Next-Generation Universal Interoperability Infrastructure L3** for AI agents (AI TCP/IP + TLS + HTTP). It is not a cognitive framework monolith, but a distributed sovereign mesh where the central infrastructure (**L3 Core Gateway**) connects three primary actor families in its reference implementation, with an agnostic architecture designed to support additional cognitive frameworks (Microsoft Agent Framework, LlamaIndex, Google ADKs), domain SDKs, and proprietary agent assistants:
 
 ```
                   ┌──────────────────────────────────────────────┐
-                  │          RayRabbit CORE Hub (8005)           │
-                  │  - MessageBus (Central Pub/Sub)              │
+                  │      RayRabbit L3 CORE GATEWAY (8005)        │
+                  │  - MessageBus (Async Pub/Sub Bus)            │
                   │  - MAESTRO Security (JWS + Zero-Trust)       │
                   │  - Hub MCP/MCPv2 Server (ws://127.0.0.1:8008)│
                   └──────────────────────┬───────────────────────┘
@@ -70,14 +70,14 @@ Este directorio contiene las librerías cliente y SDKs públicos oficiales de **
 
 ---
 
-## Topología en Estrella de RayRabbit
+## Arquitectura de Malla Soberana de RayRabbit
 
-RayRabbit es la **Infraestructura de Interoperabilidad Universal L3** para agentes de IA (AI TCP/IP + TLS + HTTP). No es un framework orquestador monolítico, sino una arquitectura distribuida en estrella donde la infraestructura central (el **Hub Core**) conecta actualmente tres familias principales de actores en su implementación de referencia, con una arquitectura abierta y agnóstica diseñada para expandir su soporte en próximos releases a múltiples frameworks cognitivos adicionales (Microsoft Agent Framework, LlamaIndex, Google ADKs), SDKs de dominio y asistentes agénticos propietarios:
+RayRabbit es la **Infraestructura de Interoperabilidad Universal L3** para agentes de IA (AI TCP/IP + TLS + HTTP). No es un framework orquestador monolítico, sino una arquitectura distribuida de malla soberana donde la infraestructura central (la **Pasarela Core L3**) conecta actualmente tres familias principales de actores en su implementación de referencia, con una arquitectura abierta y agnóstica diseñada para expandir su soporte en próximos releases a múltiples frameworks cognitivos adicionales (Microsoft Agent Framework, LlamaIndex, Google ADKs), SDKs de dominio y asistentes agénticos propietarios:
 
 ```
                   ┌──────────────────────────────────────────────┐
-                  │          RayRabbit CORE Hub (8005)           │
-                  │  - MessageBus (Pub/Sub Central)              │
+                  │      RayRabbit L3 CORE GATEWAY (8005)        │
+                  │  - MessageBus (Pub/Sub Asíncrono)            │
                   │  - MAESTRO Security (JWS + Zero-Trust)       │
                   │  - Hub MCP/MCPv2 Server (ws://127.0.0.1:8008)│
                   └──────────────────────┬───────────────────────┘

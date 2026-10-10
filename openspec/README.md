@@ -10,7 +10,7 @@ In RayRabbit, every architectural change, communication protocol, and core evolu
 
 1. **Design Before Implementation**: No production code is modified without an approved proposal (`proposal.md`), technical specifications (`specs/`), and verified task checklists (`tasks.md`).
 2. **Zero Mocks in Production**: Every specification must yield 100% functional, tested, and deterministic code.
-3. **Environment Agnosticism**: All path handling strictly uses `pathlib.Path`, and transports enforce Star Topology isolation.
+3. **Environment Agnosticism**: All path handling strictly uses `pathlib.Path`, and transports enforce Sovereign Mesh isolation.
 
 ---
 
@@ -59,7 +59,7 @@ En RayRabbit, todo cambio arquitectónico, protocolo de comunicación o evoluci�
 
 1. **Diseño Previo a la Implementación**: No se modifica código productivo sin una propuesta (proposal.md), especificaciones técnicas (specs/) y tareas verificables (	asks.md).
 2. **Cero Mocks en Producción**: Toda especificación debe resultar en código 100% funcional, probado y determinista.
-3. **Agnosticismo de Entorno**: Todo manejo de archivos utiliza pathlib.Path y los transportes respetan la Topología en Estrella.
+3. **Agnosticismo de Entorno**: Todo manejo de archivos utiliza pathlib.Path y los transportes respetan la Arquitectura de Malla Soberana y L3 Core Gateway.
 
 ---
 
