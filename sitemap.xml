@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://docs.rayrabbit.io/MANUAL-TDD-SDD/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/MANUAL-TDD-SDD/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/MANUAL-TDD-SDD/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/contributing/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/contributing/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/contributing/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/enterprise/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/enterprise/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/enterprise/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/roadmap/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/roadmap/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/roadmap/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/use-cases/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/use-cases/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/use-cases/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/concepts/architecture/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/architecture/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/concepts/federation/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/federation/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/federation/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/concepts/pillars/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/pillars/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/pillars/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/concepts/protocols/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/protocols/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/protocols/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/concepts/security/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/security/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/security/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/getting-started/configuration/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/configuration/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/configuration/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/getting-started/installation/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/installation/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/installation/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/getting-started/quickstart/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/a2a/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/a2a/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/a2a/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/a2ui/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/a2ui/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/a2ui/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/client-sdks/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/client-sdks/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/client-sdks/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/integrations/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/integrations/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/integrations/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/launchers/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/launchers/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/launchers/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/maestro/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/maestro/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/maestro/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/guides/mcp/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/mcp/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/mcp/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/reference/agents-md/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/agents-md/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/agents-md/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/reference/api/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/api/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/api/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/reference/config/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/config/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/config/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/reference/env-vars/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/env-vars/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/env-vars/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/MANUAL-TDD-SDD/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/MANUAL-TDD-SDD/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/MANUAL-TDD-SDD/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/contributing/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/contributing/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/contributing/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/enterprise/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/enterprise/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/enterprise/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/roadmap/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/roadmap/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/roadmap/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/use-cases/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/use-cases/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/use-cases/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/concepts/architecture/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/architecture/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/concepts/federation/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/federation/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/federation/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/concepts/pillars/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/pillars/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/pillars/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/concepts/protocols/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/protocols/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/protocols/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/concepts/security/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/concepts/security/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/concepts/security/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/getting-started/configuration/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/configuration/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/configuration/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/getting-started/installation/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/installation/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/installation/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/getting-started/quickstart/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/getting-started/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/getting-started/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/a2a/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/a2a/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/a2a/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/a2ui/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/a2ui/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/a2ui/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/client-sdks/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/client-sdks/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/client-sdks/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/integrations/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/integrations/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/integrations/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/launchers/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/launchers/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/launchers/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/maestro/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/maestro/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/maestro/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/guides/mcp/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/guides/mcp/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/guides/mcp/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/reference/agents-md/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/agents-md/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/agents-md/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/reference/api/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/api/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/api/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/reference/config/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/config/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/config/"/>
+    </url>
+    <url>
+        <loc>https://docs.rayrabbit.io/es/reference/env-vars/</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://docs.rayrabbit.io/es/reference/env-vars/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.rayrabbit.io/reference/env-vars/"/>
+    </url>
+</urlset>
